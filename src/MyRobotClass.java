@@ -34,7 +34,7 @@ public class MyRobotClass extends Robot{
 
 		double manhattanDistance[][] = new double[rows][columns]; //g-values for each location
 		double movementCost[][] = new double[rows][columns]; //h-values for each location
-		double f[][] = new double[rows][columns]; //h-values for each location
+		double f[][] = new double[rows][columns]; //f-values for each location
 
 
 		for (int i = 0; i < rows; i++) {
@@ -174,7 +174,7 @@ public class MyRobotClass extends Robot{
 						}
 						if (pingMap(p3) == "O") {
 							unvisited.put(p3, manhattanDistance[x+1][y-1]);
-							movementCost[x+1][y+1] = 14;
+							movementCost[x+1][y-1] = 14;
 						}
 
 						//left and right
