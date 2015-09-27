@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import java.util.Map.Entry;
-
 import world.Robot;
 import world.World;
 
@@ -152,29 +150,27 @@ public class MyRobotClass extends Robot{
 						unvisited.put(new Point((int)(x),(int)(y+1)), manhattanDistance[(int)(x)][(int)(y+1)]);
 						unvisited.put(new Point((int)(x+1),(int)(y+1)), manhattanDistance[(int)(x+1)][(int)(y+1)]);
 					}
-
 				}
-				itr.remove(); //remove from unvisited to indicate processing complete
-
+				unvisited.remove(e); //remove from unvisited to indicate processing complete
+				System.out.println(unvisited.size());
 			}
 		}
 	}
 
-public static void main(String[] args) {
-	// TODO Auto-generated method stub
-	try {
-		World myWorld = new World("myInputFile2.txt", false);
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			World myWorld = new World("myInputFile2.txt", false);
 
-		MyRobotClass myRobot = new MyRobotClass();
-		myRobot.addToWorld(myWorld);
+			MyRobotClass myRobot = new MyRobotClass();
+			myRobot.addToWorld(myWorld);
 
-		myWorld.createGUI(300, 300, 500);
-		myRobot.travelToDestination();
-	}
-	catch(Exception e) {
-		e.printStackTrace();
-	}
-
+			myWorld.createGUI(300, 300, 500);
+			myRobot.travelToDestination();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 
