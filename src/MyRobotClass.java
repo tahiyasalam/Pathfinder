@@ -45,7 +45,7 @@ public class MyRobotClass extends Robot{
 
 		int numMoves;
 
-		double x, y; 
+		int x, y; 
 		Point remove = new Point();
 
 
@@ -57,104 +57,117 @@ public class MyRobotClass extends Robot{
 			min = Collections.min(unvisited.values()); //store highest priority node
 			while (itr.hasNext()) {
 				Point e = itr.next();
+				
+				
 				if(min == unvisited.get(e)) {
 					visited.add(e); //add key to visited, start processing
-					x = e.getX();
-					y  = e.getY();
-
+					x = (int)e.getX();
+					y  = (int)e.getY();
+					
+					Point p1 = new Point(x-1, y-1);
+					Point p2 = new Point(x, y-1);
+					Point p3 = new Point(x+1, y-1);
+					Point p4 = new Point(x-1, y);
+					Point p5 = new Point(x+1, y);
+					Point p6 = new Point(x-1, y+1);
+					Point p7 = new Point(x, y+1);
+					Point p8 = new Point(x+1, y+1);
+					//1 2 3
+					//4 x 5
+					//6 7 8
 					//corner cases
 					if (x == 0 && y == 0) { //top left
-						unvisited.put(new Point((int)(x),(int)(y+1)), manhattanDistance[(int)(x)][(int)(y+1)]);
-						unvisited.put(new Point((int)(x+1),(int)(y)), manhattanDistance[(int)(x+1)][(int)(y)]);
-						unvisited.put(new Point((int)(x+1),(int)(y-1)), manhattanDistance[(int)(x+1)][(int)(y+1)]);	
+						unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
+						unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);
+						unvisited.put(p8, manhattanDistance[(int)(x+1)][(int)(y+1)]);	
 					}
 
 					else if (x == 0 && y == rows-1) { //top right
-						unvisited.put(new Point((int)(x-1),(int)(y)), manhattanDistance[(int)(x-1)][(int)(y)]);
-						unvisited.put(new Point((int)(x-1),(int)(y+1)), manhattanDistance[(int)(x-1)][(int)(y+1)]);
-						unvisited.put(new Point((int)(x),(int)(y+1)), manhattanDistance[(int)(x)][(int)(y+1)]);
+						unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
+						unvisited.put(p6, manhattanDistance[(int)(x-1)][(int)(y+1)]);
+						unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
 					}
 
 					else if (x == columns-1 && y == 0) { //bottom left
-						unvisited.put(new Point((int)(x+1),(int)(y-1)), manhattanDistance[(int)(x+1)][(int)(y-1)]);
-						unvisited.put(new Point((int)(x),(int)(y-1)), manhattanDistance[(int)(x)][(int)(y-1)]);
-						unvisited.put(new Point((int)(x+1),(int)(y)), manhattanDistance[(int)(x+1)][(int)(y)]);
+						unvisited.put(p3, manhattanDistance[(int)(x+1)][(int)(y-1)]);
+						unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
+						unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);
 					}
 
 					else if (x == columns-1 && y == rows-1) { //bottom right
-						unvisited.put(new Point((int)(x-1),(int)(y-1)), manhattanDistance[(int)(x-1)][(int)(y-1)]);
-						unvisited.put(new Point((int)(x),(int)(y-1)), manhattanDistance[(int)(x)][(int)(y-1)]);
-						unvisited.put(new Point((int)(x-1),(int)(y)), manhattanDistance[(int)(x-1)][(int)(y)]);
+						unvisited.put(p1, manhattanDistance[(int)(x-1)][(int)(y-1)]);
+						unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
+						unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
 					}
 
 					//top row cases
 					else if(y == 0) {
 						//left and right
-						unvisited.put(new Point((int)(x-1),(int)(y)), manhattanDistance[(int)(x-1)][(int)(y)]);
-						unvisited.put(new Point((int)(x+1),(int)(y)), manhattanDistance[(int)(x+1)][(int)(y)]);
+						unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
+						unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);
 
 						//bottom
-						unvisited.put(new Point((int)(x-1),(int)(y+1)), manhattanDistance[(int)(x-1)][(int)(y+1)]);
-						unvisited.put(new Point((int)(x),(int)(y+1)), manhattanDistance[(int)(x)][(int)(y+1)]);
-						unvisited.put(new Point((int)(x+1),(int)(y+1)), manhattanDistance[(int)(x+1)][(int)(y+1)]);
+						unvisited.put(p6, manhattanDistance[(int)(x-1)][(int)(y+1)]);
+						unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
+						unvisited.put(p8, manhattanDistance[(int)(x+1)][(int)(y+1)]);
 					}
 
 					//bottom row cases
 					else if (y == rows-1) {
 						//top
-						unvisited.put(new Point((int)(x-1),(int)(y-1)), manhattanDistance[(int)(x-1)][(int)(y-1)]);
-						unvisited.put(new Point((int)(x),(int)(y-1)), manhattanDistance[(int)(x)][(int)(y-1)]);
-						unvisited.put(new Point((int)(x+1),(int)(y-1)), manhattanDistance[(int)(x+1)][(int)(y-1)]);
+						unvisited.put(p1, manhattanDistance[(int)(x-1)][(int)(y-1)]);
+						unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
+						unvisited.put(p3, manhattanDistance[(int)(x+1)][(int)(y-1)]);
 
 						//left and right
-						unvisited.put(new Point((int)(x-1),(int)(y)), manhattanDistance[(int)(x-1)][(int)(y)]);
-						unvisited.put(new Point((int)(x+1),(int)(y)), manhattanDistance[(int)(x+1)][(int)(y)]);	
+						unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
+						unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);	
 					}
 
 					//left row cases
 					else if(x == 0) {
-						unvisited.put(new Point((int)(x),(int)(y-1)), manhattanDistance[(int)(x)][(int)(y-1)]);
-						unvisited.put(new Point((int)(x+1),(int)(y-1)), manhattanDistance[(int)(x+1)][(int)(y-1)]);
+						unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
+						unvisited.put(p3, manhattanDistance[(int)(x+1)][(int)(y-1)]);
 
 						//left and right
-						unvisited.put(new Point((int)(x+1),(int)(y)), manhattanDistance[(int)(x+1)][(int)(y)]);
+						unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);
 
 						//bottom
-						unvisited.put(new Point((int)(x),(int)(y+1)), manhattanDistance[(int)(x)][(int)(y+1)]);
-						unvisited.put(new Point((int)(x+1),(int)(y+1)), manhattanDistance[(int)(x+1)][(int)(y+1)]);
+						unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
+						unvisited.put(p8, manhattanDistance[(int)(x+1)][(int)(y+1)]);
 					}
 
 					else if(x == columns-1) {
-						unvisited.put(new Point((int)(x-1),(int)(y-1)), manhattanDistance[(int)(x-1)][(int)(y-1)]);
-						unvisited.put(new Point((int)(x),(int)(y-1)), manhattanDistance[(int)(x)][(int)(y-1)]);
+						unvisited.put(p1, manhattanDistance[(int)(x-1)][(int)(y-1)]);
+						unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
 
 						//left and right
-						unvisited.put(new Point((int)(x-1),(int)(y)), manhattanDistance[(int)(x-1)][(int)(y)]);
+						unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
 
 						//bottom
-						unvisited.put(new Point((int)(x-1),(int)(y+1)), manhattanDistance[(int)(x-1)][(int)(y+1)]);
-						unvisited.put(new Point((int)(x),(int)(y+1)), manhattanDistance[(int)(x)][(int)(y+1)]);
+						unvisited.put(p6, manhattanDistance[(int)(x-1)][(int)(y+1)]);
+						unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
 					}
 
 					//right row cases
 					else { //normal, non-edge case coordinate
 						//top
-						unvisited.put(new Point((int)(x-1),(int)(y-1)), manhattanDistance[(int)(x-1)][(int)(y-1)]);
-						unvisited.put(new Point((int)(x),(int)(y-1)), manhattanDistance[(int)(x)][(int)(y-1)]);
-						unvisited.put(new Point((int)(x+1),(int)(y-1)), manhattanDistance[(int)(x+1)][(int)(y-1)]);
+						unvisited.put(p1, manhattanDistance[(int)(x-1)][(int)(y-1)]);
+						unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
+						unvisited.put(p3, manhattanDistance[(int)(x+1)][(int)(y-1)]);
 
 						//left and right
-						unvisited.put(new Point((int)(x-1),(int)(y)), manhattanDistance[(int)(x-1)][(int)(y)]);
-						unvisited.put(new Point((int)(x+1),(int)(y)), manhattanDistance[(int)(x+1)][(int)(y)]);
+						unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
+						unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);
 
 						//bottom
-						unvisited.put(new Point((int)(x-1),(int)(y+1)), manhattanDistance[(int)(x-1)][(int)(y+1)]);
-						unvisited.put(new Point((int)(x),(int)(y+1)), manhattanDistance[(int)(x)][(int)(y+1)]);
-						unvisited.put(new Point((int)(x+1),(int)(y+1)), manhattanDistance[(int)(x+1)][(int)(y+1)]);
+						unvisited.put(p6, manhattanDistance[(int)(x-1)][(int)(y+1)]);
+						unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
+						unvisited.put(p8, manhattanDistance[(int)(x+1)][(int)(y+1)]);
 					}
 
 				}
-				itr.remove(); //remove from unvisited to indicate processing complete
+				unvisited.remove(e); //remove from unvisited to indicate processing complete
 
 			}
 		}
