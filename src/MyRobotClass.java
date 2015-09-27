@@ -290,11 +290,11 @@ public class MyRobotClass extends Robot{
 			    for ( int i = 0 ; i < rows ; i++ )
 			         for ( int j = 0 ; j < columns ; j++ )
 			             f[i][j] = (int)manhattanDistance[i][j] + (int)movementCost[i][j]; //populate f with g + h
-			    
 				unvisited.remove(e); //remove from unvisited to indicate processing complete
+				System.out.println(Arrays.deepToString(f));
 			}
 		}
-		System.out.println(Arrays.deepToString(f));
+
 	}
 
 	public static void main(String[] args) {
