@@ -1,6 +1,5 @@
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,24 +28,32 @@ public class MyRobotClass extends Robot{
 	@Override
 	public void travelToDestination() {
 		ArrayList<Point> visited = new ArrayList<Point>();
-		HashMap<Point, Double> unvisited = new HashMap<Point, Double>();
+		HashMap<Point, Integer> unvisited = new HashMap<Point, Integer>();
 
-		double min = 0; 
+		int min = 0; 
 
-		double manhattanDistance[][] = new double[rows][columns]; //g-values for each location
+		int manhattanDistance[][] = new int[rows][columns]; //g-values for each location
 		double movementCost[][] = new double[rows][columns]; //h-values for each location
 		int f[][] = new int[rows][columns]; //f-values for each location
 
 
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
-				manhattanDistance[i][j] = Point.distance(i, j, end.getX(), end.getY());
+				manhattanDistance[i][j] = (int)Point.distance(i, j, end.getX(), end.getY()); //populate with manhattan distance
+			}
+		}
+		
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				if(!((i == start.getX() && j == start.getY()) || (i == end.getX() && j == end.getY()))) { //except for start and end nodes
+					movementCost[i][j] = 1000000000; //populate with movement distance for walls
+				}
 			}
 		}
 		
 		int x, y; 
 
-		unvisited.put(start, 0.0);  
+		unvisited.put(start, 0);  
 
 		Iterator<Point> itr = unvisited.keySet().iterator(); //something to look @ it if bugs
 
@@ -291,7 +298,13 @@ public class MyRobotClass extends Robot{
 			         for ( int j = 0 ; j < columns ; j++ )
 			             f[i][j] = (int)manhattanDistance[i][j] + (int)movementCost[i][j]; //populate f with g + h
 				unvisited.remove(e); //remove from unvisited to indicate processing complete
-				System.out.println(Arrays.deepToString(f));
+//				for (int i = 0; i < rows; i++) {
+//					for (int j = 0; j < columns; j++) {
+//							System.out.print(f[i][j] + " "); //populate with movement distance for walls
+//						}
+//					System.out.println();
+//				}
+				//System.out.println(Arrays.deepToString(f));
 			}
 		}
 
@@ -314,7 +327,3 @@ public class MyRobotClass extends Robot{
 
 	}
 }
-
-
-
-
