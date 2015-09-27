@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import java.util.Map.Entry;
-
 import world.Robot;
 import world.World;
 
@@ -33,21 +31,19 @@ public class MyRobotClass extends Robot{
 		HashMap<Point, Double> unvisited = new HashMap<Point, Double>();
 
 		double min = 0; 
-		ArrayList<Point> adjacent = new ArrayList<Point>();
 
 		double manhattanDistance[][] = new double[rows][columns]; //g-values for each location
+		double movementCost[][] = new double[rows][columns]; //h-values for each location
+		double f[][] = new double[rows][columns]; //h-values for each location
+
 
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
-				manhattanDistance[i][j] = Point.distance((double)i, (double)j, end.getX(), end.getY());
+				manhattanDistance[i][j] = Point.distance(i, j, end.getX(), end.getY());
 			}
 		}
 
-		int numMoves;
-
 		int x, y; 
-		Point remove = new Point();
-
 
 		unvisited.put(start, 0.0);  
 
@@ -77,138 +73,223 @@ public class MyRobotClass extends Robot{
 					//6 7 8
 					//corner cases
 					if (x == 0 && y == 0) { //top left
-						if (pingMap(p7) == "O")
-							unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
-						if (pingMap(p5) == "O")
-							unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);
-						if (pingMap(p8) == "O")
-							unvisited.put(p8, manhattanDistance[(int)(x+1)][(int)(y+1)]);	
+						if (pingMap(p7) == "O") {
+							unvisited.put(p7, manhattanDistance[x][y+1]);
+							movementCost[x][y+1] = 10;
+						}
+						if (pingMap(p5) == "O") {
+							unvisited.put(p5, manhattanDistance[x+1][y]);
+							movementCost[x+1][y] = 10;
+						}
+						if (pingMap(p8) == "O") {
+							unvisited.put(p8, manhattanDistance[x+1][y+1]);
+							movementCost[x+1][y+1] = 14;
+							
+						}	
 					}
 
 					else if (x == 0 && y == rows-1) { //top right
-						if (pingMap(p4) == "O")
-							unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
-						if (pingMap(p6) == "O")
-							unvisited.put(p6, manhattanDistance[(int)(x-1)][(int)(y+1)]);
-						if (pingMap(p7) == "O")
-							unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
+						if (pingMap(p4) == "O") {
+							unvisited.put(p4, manhattanDistance[x-1][y]);
+							movementCost[x-1][y] = 10;
+							
+						}
+						if (pingMap(p6) == "O") {
+							unvisited.put(p6, manhattanDistance[x-1][y+1]);
+							movementCost[x-1][y+1] = 14;
+						}
+						if (pingMap(p7) == "O") {
+							unvisited.put(p7, manhattanDistance[x][y+1]);
+							movementCost[x][y+1] = 10;
+						}
 					}
 
 					else if (x == columns-1 && y == 0) { //bottom left
-						if (pingMap(p3) == "O")
-							unvisited.put(p3, manhattanDistance[(int)(x+1)][(int)(y-1)]);
-						if (pingMap(p2) == "O")
-							unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
-						if (pingMap(p5) == "O")
-							unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);
+						if (pingMap(p3) == "O") {
+							unvisited.put(p3, manhattanDistance[x+1][y-1]);
+							movementCost[x+1][y-1] = 14;
+						}
+						if (pingMap(p2) == "O") {
+							unvisited.put(p2, manhattanDistance[x][y-1]);
+							movementCost[x][y-1] = 10;
+						}
+						if (pingMap(p5) == "O") {
+							unvisited.put(p5, manhattanDistance[x+1][y]);
+							movementCost[x+1][y] = 10;
+						}
 					}
 
 					else if (x == columns-1 && y == rows-1) { //bottom right
-						if (pingMap(p1) == "O")
-							unvisited.put(p1, manhattanDistance[(int)(x-1)][(int)(y-1)]);
-						if (pingMap(p2) == "O")
-							unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
-						if (pingMap(p4) == "O")
-							unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
+						if (pingMap(p1) == "O") {
+							unvisited.put(p1, manhattanDistance[x-1][y-1]);
+							movementCost[x-1][y-1] = 14;
+						}
+						if (pingMap(p2) == "O") {
+							unvisited.put(p2, manhattanDistance[x][y-1]);
+							movementCost[x][y-1] = 10;
+						}
+						if (pingMap(p4) == "O") {
+							unvisited.put(p4, manhattanDistance[x-1][y]);
+							movementCost[x-1][y] = 10;
+						}
 					}
 
 					//top row cases
 					else if(y == 0) {
 						//left and right
-						if (pingMap(p4) == "O")
-							unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
-						if (pingMap(p5) == "O")
-							unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);
+						if (pingMap(p4) == "O") {
+							unvisited.put(p4, manhattanDistance[x-1][y]);
+							movementCost[x-1][y] = 10;
+						}
+						if (pingMap(p5) == "O") {
+							unvisited.put(p5, manhattanDistance[x+1][y]);
+							movementCost[x+1][y] = 10;
+						}
 
 						//bottom
-						if (pingMap(p6) == "O")
-							unvisited.put(p6, manhattanDistance[(int)(x-1)][(int)(y+1)]);
-						if (pingMap(p7) == "O")
-							unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
-						if (pingMap(p8) == "O")
-							unvisited.put(p8, manhattanDistance[(int)(x+1)][(int)(y+1)]);
+						if (pingMap(p6) == "O") {
+							unvisited.put(p6, manhattanDistance[x-1][y+1]);
+							movementCost[x-1][y+1] = 14;
+						}
+						if (pingMap(p7) == "O") {
+							unvisited.put(p7, manhattanDistance[x][y+1]);
+							movementCost[x][y+1] = 10;
+						}
+						if (pingMap(p8) == "O") {
+							unvisited.put(p8, manhattanDistance[x+1][y+1]);
+							movementCost[x+1][y+1] = 14;
+						}
 					}
 
 					//bottom row cases
 					else if (y == rows-1) {
 						//top
-						if (pingMap(p1) == "O")
-							unvisited.put(p1, manhattanDistance[(int)(x-1)][(int)(y-1)]);
-						if (pingMap(p2) == "O")
-							unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
-						if (pingMap(p3) == "O")
-							unvisited.put(p3, manhattanDistance[(int)(x+1)][(int)(y-1)]);
+						if (pingMap(p1) == "O") {
+							unvisited.put(p1, manhattanDistance[x-1][y-1]);
+							movementCost[x-1][y-1] = 14;
+						}
+						if (pingMap(p2) == "O") {
+							unvisited.put(p2, manhattanDistance[x][y-1]);
+							movementCost[x][y-1] = 10;
+						}
+						if (pingMap(p3) == "O") {
+							unvisited.put(p3, manhattanDistance[x+1][y-1]);
+							movementCost[x+1][y+1] = 14;
+						}
 
 						//left and right
-						if (pingMap(p4) == "O")
-							unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
-						if (pingMap(p5) == "O")
-							unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);	
+						if (pingMap(p4) == "O") {
+							unvisited.put(p4, manhattanDistance[x-1][y]);
+							movementCost[x-1][y] = 10;
+						}
+						if (pingMap(p5) == "O") {
+							unvisited.put(p5, manhattanDistance[x+1][y]);
+							movementCost[x+1][y] = 10;
+						}	
 					}
 
 					//left row cases
 					else if(x == 0) {
-						if (pingMap(p2) == "O")
-							unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
-						if (pingMap(p3) == "O")
-							unvisited.put(p3, manhattanDistance[(int)(x+1)][(int)(y-1)]);
+						if (pingMap(p2) == "O") {
+							unvisited.put(p2, manhattanDistance[x][y-1]);
+							movementCost[x][y-1] = 10;
+						}
+						if (pingMap(p3) == "O") {
+							unvisited.put(p3, manhattanDistance[x+1][y-1]);
+							movementCost[x+1][y-1] = 14;
+						}
 
 						//left and right
-						if (pingMap(p5) == "O")
-							unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);
+						if (pingMap(p5) == "O") {
+							unvisited.put(p5, manhattanDistance[x+1][y]);
+							movementCost[x+1][y] = 10;
+						}
 
 						//bottom
-						if (pingMap(p7) == "O")
-							unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
-						if (pingMap(p8) == "O")
-							unvisited.put(p8, manhattanDistance[(int)(x+1)][(int)(y+1)]);
+						if (pingMap(p7) == "O") {
+							unvisited.put(p7, manhattanDistance[x][y+1]);
+							movementCost[x][y+1] = 10;
+						}
+						if (pingMap(p8) == "O") {
+							unvisited.put(p8, manhattanDistance[x+1][y+1]);
+							movementCost[x+1][y+1] = 14;
+						}
 					}
 
 					else if(x == columns-1) {
-						if (pingMap(p1) == "O")
-							unvisited.put(p1, manhattanDistance[(int)(x-1)][(int)(y-1)]);
-						if (pingMap(p2) == "O")
-							unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
+						if (pingMap(p1) == "O") {
+							unvisited.put(p1, manhattanDistance[x-1][y-1]);
+							movementCost[x-1][y-1] = 14;
+						}
+						if (pingMap(p2) == "O") {
+							unvisited.put(p2, manhattanDistance[x][y-1]);
+							movementCost[x][y-1] = 10;
+						}
 
 						//left and right
-						if (pingMap(p4) == "O")
-							unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
+						if (pingMap(p4) == "O") {
+							unvisited.put(p4, manhattanDistance[x-1][y]);
+							movementCost[x-1][y] = 10;
+						}
 
 						//bottom
-						if (pingMap(p6) == "O")
-							unvisited.put(p6, manhattanDistance[(int)(x-1)][(int)(y+1)]);
-						if (pingMap(p7) == "O")
-							unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
+						if (pingMap(p6) == "O") {
+							unvisited.put(p6, manhattanDistance[x-1][y+1]);
+							movementCost[x-1][y+1] = 14;
+						}
+						if (pingMap(p7) == "O") {
+							unvisited.put(p7, manhattanDistance[x][y+1]);
+							movementCost[x][y+1] = 10;
+						}
 					}
 
 					//right row cases
 					else { //normal, non-edge case coordinate
 						//top
-						if (pingMap(p1) == "O")
-							unvisited.put(p1, manhattanDistance[(int)(x-1)][(int)(y-1)]);
-						if (pingMap(p2) == "O")
-							unvisited.put(p2, manhattanDistance[(int)(x)][(int)(y-1)]);
-						if (pingMap(p3) == "O")
-							unvisited.put(p3, manhattanDistance[(int)(x+1)][(int)(y-1)]);
+						if (pingMap(p1) == "O") {
+							unvisited.put(p1, manhattanDistance[x-1][y-1]);
+							movementCost[x-1][y-1] = 14;
+						}
+						if (pingMap(p2) == "O") {
+							unvisited.put(p2, manhattanDistance[x][y-1]);
+							movementCost[x][y-1] = 10;
+						}
+						if (pingMap(p3) == "O") {
+							unvisited.put(p3, manhattanDistance[x+1][y-1]);
+							movementCost[x+1][y-1] = 14;
+						}
 
 						//left and right
-						if (pingMap(p4) == "O")
-							unvisited.put(p4, manhattanDistance[(int)(x-1)][(int)(y)]);
-						if (pingMap(p5) == "O")
-							unvisited.put(p5, manhattanDistance[(int)(x+1)][(int)(y)]);
+						if (pingMap(p4) == "O") {
+							unvisited.put(p4, manhattanDistance[x-1][y]);
+							movementCost[x-1][y] = 10;
+						}
+						if (pingMap(p5) == "O") {
+							unvisited.put(p5, manhattanDistance[x+1][y]);
+							movementCost[x+1][y] = 10;
+						}
 
 						//bottom
-						if (pingMap(p6) == "O")
-							unvisited.put(p6, manhattanDistance[(int)(x-1)][(int)(y+1)]);
-						if (pingMap(p7) == "O")
-							unvisited.put(p7, manhattanDistance[(int)(x)][(int)(y+1)]);
-						if (pingMap(p8) == "O")
-							unvisited.put(p8, manhattanDistance[(int)(x+1)][(int)(y+1)]);
+						if (pingMap(p6) == "O") {
+							unvisited.put(p6, manhattanDistance[x-1][y+1]);
+							movementCost[x-1][y+1] = 14;
+						}
+						if (pingMap(p7) == "O") {
+							unvisited.put(p7, manhattanDistance[x][y+1]);
+							movementCost[x][y+1] = 10;
+						}
+						if (pingMap(p8) == "O") {
+							unvisited.put(p8, manhattanDistance[x+1][y+1]);
+							movementCost[x+1][y+1] = 14;
+						}
 					}
-
 				}
+				
+			    for ( int i = 0 ; i < rows ; i++ )
+			         for ( int j = 0 ; j < columns ; j++ )
+			             f[i][j] = manhattanDistance[i][j] + movementCost[i][j]; //populate f with g + h
+			    
 				unvisited.remove(e); //remove from unvisited to indicate processing complete
-
 			}
 		}
 	}
