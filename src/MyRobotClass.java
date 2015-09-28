@@ -53,17 +53,25 @@ public class MyRobotClass extends Robot{
 		
 		int x, y; 
 
-		unvisited.put(start, 0);  
+		unvisited.put(start, -1);  
 
-		Iterator<Point> itr = unvisited.keySet().iterator(); //something to look @ it if bugs
 
 		while (!unvisited.isEmpty()) {
 			min = Collections.min(unvisited.values()); //store highest priority node
-			while (itr.hasNext()) {
+			System.out.println("min: " + min);
+			if (min == 0) {
+				//base case reached - end goal
+			}
+			//Iterator<Point> itr = unvisited.keySet().iterator(); //something to look @ it if bugs
+			
+			for (Iterator<Point> itr = unvisited.keySet().iterator(); itr.hasNext();) {
 				Point e = itr.next();
-
+				
 				if(min == unvisited.get(e)) {
+					//System.out.println("point e: " + e.toString());
 					visited.add(e); //add key to visited, start processing
+					System.out.println(itr.toString());
+					itr.remove();
 					x = (int)e.getX();
 					y  = (int)e.getY();
 
@@ -81,171 +89,171 @@ public class MyRobotClass extends Robot{
 					//6 7 8
 					//corner cases
 					if (x == 0 && y == 0) { //top left
-						if (pingMap(p7).equals("O")) {
+						if (pingMap(p7).equals("O") && !visited.contains(p7)) {
 							unvisited.put(p7, manhattanDistance[x+1][y]);
 							movementCost[x+1][y] = 10;
 						}
-						if (pingMap(p5).equals("O")) {
+						if (pingMap(p5).equals("O") && !visited.contains(p5)) {
 							unvisited.put(p5, manhattanDistance[x][y+1]);
 							movementCost[x][y+1] = 10;
 						}
-						if (pingMap(p8).equals("O")) {
+						if (pingMap(p8).equals("O") && !visited.contains(p8)) {
 							unvisited.put(p8, manhattanDistance[x+1][y+1]);
 							movementCost[x+1][y+1] = 14;
 							
 						}	
 					}
 
-					else if (x == 0 && y == rows-1) { //top right
-						if (pingMap(p4).equals("O")) {
+					else if (y == 0 && x == rows-1) { //top right
+						if (pingMap(p4).equals("O") && !visited.contains(p4)) {
 							unvisited.put(p4, manhattanDistance[x][y-1]);
 							movementCost[x][y-1] = 10;
 							
 						}
-						if (pingMap(p6).equals("O")) {
+						if (pingMap(p6).equals("O") && !visited.contains(p6)) {
 							unvisited.put(p6, manhattanDistance[x+1][y-1]);
 							movementCost[x+1][y-1] = 14;
 						}
-						if (pingMap(p7).equals("O")) {
+						if (pingMap(p7).equals("O") && !visited.contains(p7)) {
 							unvisited.put(p7, manhattanDistance[x+1][y]);
 							movementCost[x+1][y] = 10;
 						}
 					}
 
-					else if (x == columns-1 && y == 0) { //bottom left
-						if (pingMap(p3).equals("O")) {
+					else if (y == columns-1 && x == 0) { //bottom left
+						if (pingMap(p3).equals("O") && !visited.contains(p3)) {
 							unvisited.put(p3, manhattanDistance[x-1][y+1]);
 							movementCost[x-1][y+1] = 14;
 						}
-						if (pingMap(p2).equals("O")) {
+						if (pingMap(p2).equals("O") && !visited.contains(p2)) {
 							unvisited.put(p2, manhattanDistance[x-1][y]);
 							movementCost[x-1][y] = 10;
 						}
-						if (pingMap(p5).equals("O")) {
+						if (pingMap(p5).equals("O") && !visited.contains(p5)) {
 							unvisited.put(p5, manhattanDistance[x][y+1]);
 							movementCost[x][y+1] = 10;
 						}
 					}
 
-					else if (x == columns-1 && y == rows-1) { //bottom right
-						if (pingMap(p1).equals("O")) {
+					else if (y == columns-1 && x == rows-1) { //bottom right
+						if (pingMap(p1).equals("O") && !visited.contains(p1)) {
 							unvisited.put(p1, manhattanDistance[x-1][y-1]);
 							movementCost[x-1][y-1] = 14;
 						}
-						if (pingMap(p2).equals("O")) {
+						if (pingMap(p2).equals("O") && !visited.contains(p2)) {
 							unvisited.put(p2, manhattanDistance[x-1][y]);
 							movementCost[x-1][y] = 10;
 						}
-						if (pingMap(p4).equals("O")) {
+						if (pingMap(p4).equals("O") && !visited.contains(p4)) {
 							unvisited.put(p4, manhattanDistance[x][y-1]);
 							movementCost[x][y-1] = 10;
 						}
 					}
 
 					//top row cases
-					else if(y == 0) {
+					else if(x == 0) {
 						//left and right
-						if (pingMap(p4).equals("O")) {
+						if (pingMap(p4).equals("O") && !visited.contains(p4)) {
 							unvisited.put(p4, manhattanDistance[x][y-1]);
 							movementCost[x][y-1] = 10;
 						}
-						if (pingMap(p5).equals("O")) {
+						if (pingMap(p5).equals("O") && !visited.contains(p5)) {
 							unvisited.put(p5, manhattanDistance[x][y+1]);
 							movementCost[x][y+1] = 10;
 						}
 
 						//bottom
-						if (pingMap(p6).equals("O")) {
+						if (pingMap(p6).equals("O") && !visited.contains(p6)) {
 							unvisited.put(p6, manhattanDistance[x+1][y-1]);
 							movementCost[x+1][y-1] = 14;
 						}
-						if (pingMap(p7).equals("O")) {
+						if (pingMap(p7).equals("O") && !visited.contains(p7)) {
 							unvisited.put(p7, manhattanDistance[x+1][y]);
 							movementCost[x+1][y] = 10;
 						}
-						if (pingMap(p8).equals("O")) {
+						if (pingMap(p8).equals("O") && !visited.contains(p8)) {
 							unvisited.put(p8, manhattanDistance[x+1][y+1]);
 							movementCost[x+1][y+1] = 14;
 						}
 					}
 
 					//bottom row cases
-					else if (y == rows-1) {
+					else if (x == rows-1) {
 						//top
-						if (pingMap(p1).equals("O")) {
+						if (pingMap(p1).equals("O") && !visited.contains(p1)) {
 							unvisited.put(p1, manhattanDistance[x-1][y-1]);
 							movementCost[x-1][y-1] = 14;
 						}
-						if (pingMap(p2).equals("O")) {
+						if (pingMap(p2).equals("O") && !visited.contains(p2)) {
 							unvisited.put(p2, manhattanDistance[x-1][y]);
 							movementCost[x-1][y] = 10;
 						}
-						if (pingMap(p3).equals("O")) {
+						if (pingMap(p3).equals("O") && !visited.contains(p3)) {
 							unvisited.put(p3, manhattanDistance[x-1][y+1]);
 							movementCost[x-1][y+1] = 14;
 						}
 
 						//left and right
-						if (pingMap(p4).equals("O")) {
+						if (pingMap(p4).equals("O") && !visited.contains(p4)) {
 							unvisited.put(p4, manhattanDistance[x][y-1]);
 							movementCost[x][y-1] = 10;
 						}
-						if (pingMap(p5).equals("O")) {
+						if (pingMap(p5).equals("O") && !visited.contains(p5)) {
 							unvisited.put(p5, manhattanDistance[x][y+1]);
 							movementCost[x][y+1] = 10;
 						}	
 					}
 
 					//left row cases
-					else if(x == 0) {
-						if (pingMap(p2).equals("O")) {
+					else if(y == 0) {
+						if (pingMap(p2).equals("O") && !visited.contains(p2)) {
 							unvisited.put(p2, manhattanDistance[x-1][y]);
 							movementCost[x-1][y] = 10;
 						}
-						if (pingMap(p3).equals("O")) {
+						if (pingMap(p3).equals("O") && !visited.contains(p3)) {
 							unvisited.put(p3, manhattanDistance[x-1][y+1]);
 							movementCost[x-1][y+1] = 14;
 						}
 
 						//left and right
-						if (pingMap(p5).equals("O")) {
+						if (pingMap(p5).equals("O") && !visited.contains(p5)) {
 							unvisited.put(p5, manhattanDistance[x][y+1]);
 							movementCost[x][y+1] = 10;
 						}
 
 						//bottom
-						if (pingMap(p7).equals("O")) {
+						if (pingMap(p7).equals("O") && !visited.contains(p7)) {
 							unvisited.put(p7, manhattanDistance[x+1][y]);
 							movementCost[x+1][y] = 10;
 						}
-						if (pingMap(p8).equals("O")) {
+						if (pingMap(p8).equals("O") && !visited.contains(p8)) {
 							unvisited.put(p8, manhattanDistance[x+1][y+1]);
 							movementCost[x+1][y+1] = 14;
 						}
 					}
 
-					else if(x == columns-1) {
-						if (pingMap(p1).equals("O")) {
+					else if(y == columns-1) {
+						if (pingMap(p1).equals("O") && !visited.contains(p1)) {
 							unvisited.put(p1, manhattanDistance[x-1][y-1]);
 							movementCost[x-1][y-1] = 14;
 						}
-						if (pingMap(p2).equals("O")) {
+						if (pingMap(p2).equals("O") && !visited.contains(p2)) {
 							unvisited.put(p2, manhattanDistance[x-1][y]);
 							movementCost[x-1][y] = 10;
 						}
 
 						//left and right
-						if (pingMap(p4).equals("O")) {
+						if (pingMap(p4).equals("O") && !visited.contains(p4)) {
 							unvisited.put(p4, manhattanDistance[x][y-1]);
 							movementCost[x][y-1] = 10;
 						}
 
 						//bottom
-						if (pingMap(p6).equals("O")) {
+						if (pingMap(p6).equals("O") && !visited.contains(p6)) {
 							unvisited.put(p6, manhattanDistance[x+1][y-1]);
 							movementCost[x+1][y-1] = 14;
 						}
-						if (pingMap(p7).equals("O")) {
+						if (pingMap(p7).equals("O") && !visited.contains(p7)) {
 							unvisited.put(p7, manhattanDistance[x+1][y]);
 							movementCost[x+1][y] = 10;
 						}
@@ -255,39 +263,39 @@ public class MyRobotClass extends Robot{
 					else { //normal, non-edge case coordinate
 						//top
 
-						if (pingMap(p1).equals("O")) {
+						if (pingMap(p1).equals("O") && !visited.contains(p1)) {
 							unvisited.put(p1, manhattanDistance[x-1][y-1]);
 							movementCost[x-1][y-1] = 14;
 						}
-						if (pingMap(p2).equals("O"))  {
+						if (pingMap(p2).equals("O") && !visited.contains(p2))  {
 							unvisited.put(p2, manhattanDistance[x-1][y]);
 							movementCost[x-1][y] = 10;
 						}
-						if (pingMap(p3).equals("O")) {
+						if (pingMap(p3).equals("O") && !visited.contains(p3)) {
 							unvisited.put(p3, manhattanDistance[x-1][y+1]);
 							movementCost[x-1][y+1] = 14;
 						}
 
 						//left and right
-						if (pingMap(p4).equals("O")) {
+						if (pingMap(p4).equals("O") && !visited.contains(p4)) {
 							unvisited.put(p4, manhattanDistance[x][y-1]);
 							movementCost[x][y-1] = 10;
 						}
-						if (pingMap(p5).equals("O")) {
+						if (pingMap(p5).equals("O") && !visited.contains(p5)) {
 							unvisited.put(p5, manhattanDistance[x][y+1]);
 							movementCost[x][y+1] = 10;
 						}
 
 						//bottom
-						if (pingMap(p6).equals("O")) {
+						if (pingMap(p6).equals("O") && !visited.contains(p6)) {
 							unvisited.put(p6, manhattanDistance[x+1][y-1]);
 							movementCost[x+1][y-1] = 14;
 						}
-						if (pingMap(p7).equals("O")) {
+						if (pingMap(p7).equals("O") && !visited.contains(p7)) {
 							unvisited.put(p7, manhattanDistance[x+1][y]);
 							movementCost[x+1][y] = 10;
 						}
-						if (pingMap(p8).equals("O")) {
+						if (pingMap(p8).equals("O") && !visited.contains(p8)) {
 							unvisited.put(p8, manhattanDistance[x+1][y+1]);
 							movementCost[x+1][y+1] = 14;
 						}
@@ -297,10 +305,13 @@ public class MyRobotClass extends Robot{
 			    for ( int i = 0 ; i < rows ; i++ )
 			         for ( int j = 0 ; j < columns ; j++ )
 			             f[i][j] = (int)manhattanDistance[i][j] + (int)movementCost[i][j]; //populate f with g + h
-				unvisited.remove(e); //remove from unvisited to indicate processing complete
+
+//			    System.out.println("visited: " + visited.toString());
+//
+//				System.out.println("unvisited: " + unvisited.toString());
 //				for (int i = 0; i < rows; i++) {
 //					for (int j = 0; j < columns; j++) {
-//							System.out.print(f[i][j] + " "); //populate with movement distance for walls
+//							System.out.print(movementCost[i][j] + " "); //populate with movement distance for walls
 //						}
 //					System.out.println();
 //				}
