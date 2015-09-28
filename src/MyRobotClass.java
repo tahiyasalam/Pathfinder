@@ -55,25 +55,59 @@ public class MyRobotClass extends Robot{
 
 		unvisited.put(start, -1);  
 
+		
+		boolean endGoal = false;
 
-		while (!unvisited.isEmpty()) {
+		while (!endGoal && !unvisited.isEmpty()) {
 			min = Collections.min(unvisited.values()); //store highest priority node
-			System.out.println("min: " + min);
-			if (min == 0) {
-				//base case reached - end goal
-			}
-			//Iterator<Point> itr = unvisited.keySet().iterator(); //something to look @ it if bugs
+			
 			
 			for (Iterator<Point> itr = unvisited.keySet().iterator(); itr.hasNext();) {
 				Point e = itr.next();
 				
+				//base case reached - end goal
+				if (min == 1 && min == unvisited.get(e)) {
+					System.out.println("last state: " + e.toString());
+					move(e);
+					move(end); //move robot to end
+					System.out.println("reached end");
+					endGoal = true;
+					break;
+				}
+				
+				
 				if(min == unvisited.get(e)) {
-					//System.out.println("point e: " + e.toString());
-					visited.add(e); //add key to visited, start processing
-					System.out.println(itr.toString());
-					itr.remove();
+					//System.out.println("point: " + e.toString() + " min: " + min);
+					//check if robot needs to back track
+					
 					x = (int)e.getX();
 					y  = (int)e.getY();
+					if(!visited.isEmpty()){
+						Point last = visited.get(visited.size()-1); //last point visited
+						//System.out.println(last.toString());
+						int x1 = (int)last.getX();
+						int y1 = (int)last.getY(); 
+						
+					
+						int i = 2;
+						while(Math.abs(x1-x) >1 || Math.abs(y1-y) >1){
+							//System.out.println("backtracking");
+							//backtrack
+							
+							//System.out.println("b: " + last.toString());
+							last = visited.get(visited.size()-i);
+							move(last);
+							x1 = (int)last.getX();
+							y1 = (int)last.getY();
+							i++;
+						}
+					}
+					move(e);//move to next spot
+					//System.out.println("f: "+ e.toString());
+					visited.add(e); //add key to visited, start processing
+					itr.remove();//remove from key set
+					unvisited.remove(e); //remove from unvisited
+					
 
 					Point p1 = new Point(x-1, y-1);
 					Point p2 = new Point(x-1, y);					
@@ -104,7 +138,7 @@ public class MyRobotClass extends Robot{
 						}	
 					}
 
-					else if (y == 0 && x == rows-1) { //top right
+					else if (y == columns-1 && x == 0) { //top right
 						if (pingMap(p4).equals("O") && !visited.contains(p4)) {
 							unvisited.put(p4, manhattanDistance[x][y-1]);
 							movementCost[x][y-1] = 10;
@@ -120,7 +154,7 @@ public class MyRobotClass extends Robot{
 						}
 					}
 
-					else if (y == columns-1 && x == 0) { //bottom left
+					else if (y == 0 && x == rows-1) { //bottom left
 						if (pingMap(p3).equals("O") && !visited.contains(p3)) {
 							unvisited.put(p3, manhattanDistance[x-1][y+1]);
 							movementCost[x-1][y+1] = 14;
@@ -300,7 +334,9 @@ public class MyRobotClass extends Robot{
 							movementCost[x+1][y+1] = 14;
 						}
 					}
+					break;
 				}
+				
 				
 			    for ( int i = 0 ; i < rows ; i++ )
 			         for ( int j = 0 ; j < columns ; j++ )
