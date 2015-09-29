@@ -1,0 +1,8 @@
+is this right
+	no
+methods for pinging
+	should be able to ping once to get map
+ratings
+	all movement directions costs the same
+	however, movement cost should calculate the moves from the start node --> accumulating costs
+
