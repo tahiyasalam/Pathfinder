@@ -49,6 +49,9 @@ public class MyRobotClass extends Robot{
 				if(!((i == start.getX() && j == start.getY()))) { //except for start and end nodes
 					movementCost[i][j] = 1000000000; //populate with movement distance for walls
 				}
+				if(((i == end.getX() && j == end.getY()))) {
+					movementCost[i][j] = 0;
+				}
 			}
 		}
 
@@ -395,7 +398,10 @@ public class MyRobotClass extends Robot{
 								}
 							}
 						}
-						movementCost[end.x][end.y] = mc+1;
+						
+						if ( movementCost[end.x][end.y] < mc ) 
+							movementCost[end.x][end.y] = mc+1;
+						System.out.println("END MOVEMENT COST: " + movementCost[end.x][end.y]);
 						//update f matrix - does this work?
 						for ( int i = 0 ; i < rows ; i++ )
 							for ( int j = 0 ; j < columns ; j++ ) {
@@ -405,11 +411,13 @@ public class MyRobotClass extends Robot{
 									unvisited.put((p), f[i][j]);
 							}
 						break;
+						
 					}
 
 				}
 			}
 			ArrayList<Point> path = new ArrayList<Point>();
+			System.out.println("end" + end.toString());
 			path.add(end);
 			x = end.x;
 			y = end.y;
@@ -492,8 +500,21 @@ public class MyRobotClass extends Robot{
 				
 			}
 			
+			System.out.println("STOP HAMMER tiME");
+			for ( int i = 0 ; i < rows ; i++ ) {
+				for ( int j = 0 ; j < columns ; j++ ) {
+					if (movementCost[i][j] >= 1000000000 )
+						System.out.print("X ");
+					else
+						System.out.print(movementCost[i][j] + " ");
+				}
+			System.out.println("");
+			}
+			
+			//gets to dead end and then does not turn back
 			while(!path.isEmpty()){
 				move(path.get(path.size()-1));
+				//System.out.println(path.get(path.size()-1).toString());
 				path.remove(path.size()-1);
 			}
 		}
@@ -507,13 +528,7 @@ public class MyRobotClass extends Robot{
 //			System.out.println("");
 //			}
 //
-//			System.out.println("STOP HAMMER tiME");
-//			for ( int i = 0 ; i < rows ; i++ ) {
-//				for ( int j = 0 ; j < columns ; j++ ) {
-//					System.out.print(movementCost[i][j] + " ");
-//				}
-//			System.out.println("");
-//			}
+
 //
 //		
 //			System.out.println("IT TAKES 2");
@@ -850,7 +865,7 @@ public class MyRobotClass extends Robot{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			World myWorld = new World("myInputFile4.txt", true);
+			World myWorld = new World("myInputFile4.txt", false);
 
 			MyRobotClass myRobot = new MyRobotClass();
 			myRobot.addToWorld(myWorld);
