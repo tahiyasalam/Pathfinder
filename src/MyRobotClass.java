@@ -590,7 +590,7 @@ public class MyRobotClass extends Robot{
 			
 			for (int i = 0; i < rows; i++) {
 				for (int j = 0; j < columns; j++) {
-					ping[i][j] = "o"; //get all of the locations
+					ping[i][j] = "u"; //get all of the locations
 				}
 			}		
 			
@@ -620,7 +620,7 @@ public class MyRobotClass extends Robot{
 						if (d<4){
 							//determine number of pings as a function of  distance
 							int pnum = (int) Math.pow(2, d-1);
-							if (ping[i][j].equals("o") || ping[i][j].equals("x") ){
+							if (ping[i][j].equals("u")){
 								for(int k = 0; k < pnum; k++){
 									s = pingMap(p);
 									if (s.equals("O")){
@@ -689,19 +689,19 @@ public class MyRobotClass extends Robot{
 	
 							//corner cases
 							if (x == 0 && y == 0) { //top left
-								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o")) && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u")) && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if (mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
 									}
 								}
-								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o")) && !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u")) && !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if (mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
 									}
 								}
-								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o")) && !visited.contains(p8)) {
+								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u")) && !visited.contains(p8)) {
 									unvisited.put(p8, manhattanDistance[x+1][y+1]);
 									if (mc < movementCost[x+1][y+1]){
 										movementCost[x+1][y+1] = mc;
@@ -710,19 +710,19 @@ public class MyRobotClass extends Robot{
 							}
 	
 							else if (y == columns-1 && x == 0) { //top right
-								if ((ping[x][y-1].equals("O")||ping[x][y-1].equals("o"))&& !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u"))&& !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
 									}
 								}
-								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o")) && !visited.contains(p6)) {
+								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u")) && !visited.contains(p6)) {
 									unvisited.put(p6, manhattanDistance[x+1][y-1]);
 									if(mc < movementCost[x+1][y-1]){
 										movementCost[x+1][y-1] = mc;
 									}
 								}
-								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") ) && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u")) && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if(mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
@@ -731,19 +731,19 @@ public class MyRobotClass extends Robot{
 							}
 	
 							else if (y == 0 && x == rows-1) { //bottom left
-								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o")) && !visited.contains(p3)) {
+								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") || ping[x-1][y+1].equals("u")) && !visited.contains(p3)) {
 									unvisited.put(p3, manhattanDistance[x-1][y+1]);
 									if (mc < movementCost[x-1][y+1]){ 
 										movementCost[x-1][y+1] = mc;
 									}
 								}
-								if ((ping[x-1][y].equals("O")|| ping[x-1][y].equals("o"))&& !visited.contains(p2)) {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u"))&& !visited.contains(p2)) {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if (mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
 									}
 								}
-								if ((ping[x][y+1].equals("O")||ping[x][y+1].equals("o") )&& !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u"))&& !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if (mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
@@ -752,19 +752,19 @@ public class MyRobotClass extends Robot{
 							}
 	
 							else if (y == columns-1 && x == rows-1) { //bottom right
-								if ((ping[x-1][y-1].equals("O") ||ping[x-1][y-1].equals("o") )&& !visited.contains(p1)) {
+								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u") )&& !visited.contains(p1)) {
 									unvisited.put(p1, manhattanDistance[x-1][y-1]);
 									if (mc < movementCost[x-1][y-1]){
 										movementCost[x-1][y-1] = mc;
 									}
 								}
-								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") )&& !visited.contains(p2)) {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u"))&& !visited.contains(p2)) {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if(mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
 									}
 								}
-								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o"))&& !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u"))&& !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
@@ -775,13 +775,13 @@ public class MyRobotClass extends Robot{
 							//top row cases
 							else if(x == 0) {
 								//left and right
-								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o")) && !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u")) && !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
 									}
 								}
-								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") )&& !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u"))&& !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if(mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
@@ -789,19 +789,19 @@ public class MyRobotClass extends Robot{
 								}
 	
 								//bottom
-								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o")) && !visited.contains(p6)) {
+								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u")) && !visited.contains(p6)) {
 									unvisited.put(p6, manhattanDistance[x+1][y-1]);
 									if (mc < movementCost[x+1][y-1]){
 										movementCost[x+1][y-1] = mc;
 									}
 								}
-								if ((ping[x+1][y].equals("O")||ping[x+1][y].equals("o")) && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u")) && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if (mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
 									}
 								}
-								if ((ping[x+1][y+1].equals("O")||ping[x+1][y+1].equals("o")) && !visited.contains(p8)) {
+								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u")) && !visited.contains(p8)) {
 									unvisited.put(p8, manhattanDistance[x+1][y+1]);
 									if (mc < movementCost[x+1][y+1]){
 										movementCost[x+1][y+1] = mc;
@@ -812,19 +812,19 @@ public class MyRobotClass extends Robot{
 							//bottom row cases
 							else if (x == rows-1) {
 								//top
-								if ((ping[x-1][y-1].equals("O")||ping[x-1][y-1].equals("o")) && !visited.contains(p1)) {
+								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u")) && !visited.contains(p1)) {
 									unvisited.put(p1, manhattanDistance[x-1][y-1]);
 									if(mc < movementCost[x-1][y-1]){
 										movementCost[x-1][y-1] = mc;
 									}
 								}
-								if ((ping[x-1][y].equals("O")||ping[x-1][y].equals("o")) && !visited.contains(p2)) {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u")) && !visited.contains(p2)) {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if (mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
 									}
 								}
-								if ((ping[x-1][y+1].equals("O")||ping[x-1][y+1].equals("o")) && !visited.contains(p3)) {
+								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") ||ping[x-1][y+1].equals("u")) && !visited.contains(p3)) {
 									unvisited.put(p3, manhattanDistance[x-1][y+1]);
 									if (mc < movementCost[x-1][y+1]){
 										movementCost[x-1][y+1] = mc;
@@ -832,13 +832,13 @@ public class MyRobotClass extends Robot{
 								}
 	
 								//left and right
-								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o")) && !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u") ) && !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
 									}
 								}
-								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o")) && !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u")) && !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if (mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
@@ -848,13 +848,13 @@ public class MyRobotClass extends Robot{
 	
 							//left row cases
 							else if(y == 0) {
-								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o")) && !visited.contains(p2)) {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o")  || ping[x-1][y].equals("u")) && !visited.contains(p2)) {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if (mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
 									}
 								}
-								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o")) && !visited.contains(p3)) {
+								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") || ping[x-1][y+1].equals("u")) && !visited.contains(p3)) {
 									unvisited.put(p3, manhattanDistance[x-1][y+1]);
 									if (mc < movementCost[x-1][y+1]){
 										movementCost[x-1][y+1] = mc;
@@ -862,7 +862,7 @@ public class MyRobotClass extends Robot{
 								}
 	
 								//left and right
-								if ((ping[x][y+1].equals("O")||ping[x][y+1].equals("o")) && !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u")) && !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if (mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
@@ -870,13 +870,13 @@ public class MyRobotClass extends Robot{
 								}
 	
 								//bottom
-								if ((ping[x+1][y].equals("O")||ping[x+1][y].equals("o")) && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u")) && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if (mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
 									}
 								}
-								if ((ping[x+1][y+1].equals("O")||ping[x+1][y+1].equals("o")) && !visited.contains(p8)) {
+								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u")) && !visited.contains(p8)) {
 									unvisited.put(p8, manhattanDistance[x+1][y+1]);
 									if (mc < movementCost[x+1][y+1]){
 										movementCost[x+1][y+1] = mc;
@@ -885,13 +885,13 @@ public class MyRobotClass extends Robot{
 							}
 	
 							else if(y == columns-1) {
-								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o")) && !visited.contains(p1)) {
+								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u")) && !visited.contains(p1)) {
 									unvisited.put(p1, manhattanDistance[x-1][y-1]);
 									if (mc < movementCost[x-1][y-1]){
 										movementCost[x-1][y-1] = mc;
 									}
 								}
-								if ((ping[x-1][y].equals("O")||ping[x-1][y].equals("o")) && !visited.contains(p2)) {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u")) && !visited.contains(p2)) {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if (mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
@@ -899,7 +899,7 @@ public class MyRobotClass extends Robot{
 								}
 	
 								//left and right
-								if ((ping[x][y-1].equals("O")||ping[x][y-1].equals("o")) && !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u")) && !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
@@ -907,13 +907,13 @@ public class MyRobotClass extends Robot{
 								}
 	
 								//bottom
-								if ((ping[x+1][y-1].equals("O")||ping[x+1][y-1].equals("o")) && !visited.contains(p6)) {
+								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u")) && !visited.contains(p6)) {
 									unvisited.put(p6, manhattanDistance[x+1][y-1]);
 									if (mc < movementCost[x+1][y-1]){
 										movementCost[x+1][y-1] = mc;
 									}
 								}
-								if ((ping[x+1][y].equals("O")||ping[x+1][y].equals("o"))  && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u"))  && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if (mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
@@ -925,19 +925,19 @@ public class MyRobotClass extends Robot{
 							else { //normal, non-edge case coordinate
 								//top
 	
-								if ((ping[x-1][y-1].equals("O")||ping[x-1][y-1].equals("o")) && !visited.contains(p1)) {
+								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u")) && !visited.contains(p1)) {
 									unvisited.put(p1, manhattanDistance[x-1][y-1]);
 									if (mc < movementCost[x-1][y-1]){
 										movementCost[x-1][y-1] = mc;
 									}
 								}
-								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o")) && !visited.contains(p2))  {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u")) && !visited.contains(p2))  {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if (mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
 									}
 								}
-								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o")) && !visited.contains(p3)) {
+								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") || ping[x-1][y+1].equals("u")) && !visited.contains(p3)) {
 									unvisited.put(p3, manhattanDistance[x-1][y+1]);
 									if (mc < movementCost[x-1][y+1]){
 										movementCost[x-1][y+1] = mc;
@@ -945,13 +945,13 @@ public class MyRobotClass extends Robot{
 								}
 	
 								//left and right
-								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o")) && !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u")) && !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
 									}
 								}
-								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o")) && !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u")) && !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if (mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
@@ -959,19 +959,19 @@ public class MyRobotClass extends Robot{
 								}
 	
 								//bottom
-								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o")) && !visited.contains(p6)) {
+								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u")) && !visited.contains(p6)) {
 									unvisited.put(p6, manhattanDistance[x+1][y-1]);
 									if (mc < movementCost[x+1][y-1]){
 										movementCost[x+1][y-1] = mc;
 									}
 								}
-								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o")) && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u")) && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if (mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
 									}
 								}
-								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o")) && !visited.contains(p8)) {
+								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u")) && !visited.contains(p8)) {
 									unvisited.put(p8, manhattanDistance[x+1][y+1]);
 									if (mc < movementCost[x+1][y+1]){
 										movementCost[x+1][y+1] = mc;
@@ -1168,7 +1168,7 @@ public class MyRobotClass extends Robot{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			World myWorld = new World("myInputFile2.txt", false);
+			World myWorld = new World("myInputFile3.txt", true);
 
 			MyRobotClass myRobot = new MyRobotClass();
 			myRobot.addToWorld(myWorld);
