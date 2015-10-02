@@ -609,6 +609,7 @@ public class MyRobotClass extends Robot{
 				//start by pinging nearby nodes
 				int countO = 0;//counting the return values from ping map
 				int countX = 0;
+				double oprop = 0;//determine proportion of O vs X used
 				String s;
 				
 				//traverse entire map, ping within certain radius of current position
@@ -630,7 +631,8 @@ public class MyRobotClass extends Robot{
 										countX++;
 									}
 								}
-								if (countO > countX){
+								oprop = countO/(double)(countO+countX);
+								if (oprop > Math.random()){ //higher proportion more likely
 									ping[i][j] = "o";
 									makeGuess(p, true);
 								}
@@ -686,6 +688,65 @@ public class MyRobotClass extends Robot{
 							//1 2 3
 							//4 x 5
 							//6 7 8
+							
+							if(x > 0 && x < rows && y > 0 && y < columns) {
+								if((ping[x-1][y-1].equalsIgnoreCase("x")) && (ping[x-1][y].equalsIgnoreCase("x")) && (ping[x-1][y+1].equalsIgnoreCase("x")) &&
+										(ping[x][y-1].equalsIgnoreCase("x")) && (ping[x-1][y+1].equalsIgnoreCase("x")) &&
+										(ping[x+1][y-1].equalsIgnoreCase("x")) && (ping[x+1][y].equalsIgnoreCase("x")) && (ping[x+1][y+1].equalsIgnoreCase("x"))) {
+									System.out.println("flag");
+									if (ping[x-1][y-1].equals("x")) {
+										unvisited.put(p1, manhattanDistance[x-1][y-1]);
+										if (mc < movementCost[x-1][y-1]){
+											movementCost[x-1][y-1] = mc;
+										}
+									}
+									if (ping[x-1][y].equals("x")) {
+										unvisited.put(p2, manhattanDistance[x-1][y]);
+										if (mc < movementCost[x-1][y]){
+											movementCost[x-1][y] = mc;
+										}
+									}
+									if (ping[x-1][y+1].equals("x")) {
+										unvisited.put(p3, manhattanDistance[x-1][y+1]);
+										if (mc < movementCost[x-1][y+1]){
+											movementCost[x-1][y+1] = mc;
+										}
+
+									}
+									if (ping[x][y-1].equals("x")) {
+										unvisited.put(p4, manhattanDistance[x][y-1]);
+										if (mc < movementCost[x][y-1]){
+											movementCost[x][y-1] = mc;
+										}
+
+
+									}
+									if (ping[x][y+1].equals("x")) {
+										unvisited.put(p5, manhattanDistance[x][y+1]);
+										if (mc < movementCost[x][y+1]){
+											movementCost[x][y+1] = mc;
+										}
+									}
+									if (ping[x+1][y-1].equals("x")) {
+										unvisited.put(p6, manhattanDistance[x+1][y-1]);
+										if (mc < movementCost[x+1][y-1]){
+											movementCost[x+1][y-1] = mc;
+										}
+									}
+									if (ping[x+1][y].equals("x")) {
+										unvisited.put(p7, manhattanDistance[x+1][y]);
+										if (mc < movementCost[x+1][y]){
+											movementCost[x+1][y] = mc;
+										}
+									}
+									if (ping[x+1][y+1].equals("x")) {
+										unvisited.put(p8, manhattanDistance[x+1][y+1]);
+										if (mc < movementCost[x+1][y+1]){
+											movementCost[x+1][y+1] = mc;
+										}
+									}
+								}
+							}
 	
 							//corner cases
 							if (x == 0 && y == 0) { //top left
@@ -1136,6 +1197,81 @@ public class MyRobotClass extends Robot{
 				}
 				movementCost[pStart.x][pStart.y] = 0;
 				
+				int psx = pStart.x;
+				int psy = pStart.y;
+
+				Point ps1 = new Point(psx-1, psy-1);
+				Point ps2 = new Point(psx-1, psy);					
+				Point ps3 = new Point(psx-1, psy+1);
+				Point ps4 = new Point(psx, psy-1);
+				Point ps5 = new Point(psx, psy+1);
+				Point ps6 = new Point(psx+1, psy-1);
+				Point ps7 = new Point(psx+1, y);
+				Point ps8 = new Point(psx+1, y+1);
+				//1 2 3
+				//4 x 5
+				//6 7 8
+				if(psx > 0 && psx < rows && psy > 0 && psy < columns) {
+					if((ping[psx-1][psy-1].equalsIgnoreCase("x")) && (ping[psx-1][psy].equalsIgnoreCase("x")) && (ping[psx-1][psy+1].equalsIgnoreCase("x")) &&
+							(ping[psx][psy-1].equalsIgnoreCase("x")) && (ping[psx-1][psy+1].equalsIgnoreCase("x")) &&
+							(ping[psx+1][psy-1].equalsIgnoreCase("x")) && (ping[psx+1][psy].equalsIgnoreCase("x")) && (ping[psx+1][psy+1].equalsIgnoreCase("x"))) {
+						System.out.println("flag");
+						if (ping[psx-1][psy-1].equals("x")) {
+							unvisited.put(ps1, manhattanDistance[psx-1][psy-1]);
+							if (mc < movementCost[psx-1][psy-1]){
+								movementCost[psx-1][psy-1] = mc;
+							}
+						}
+						if (ping[psx-1][psy].equals("x")) {
+							unvisited.put(ps2, manhattanDistance[psx-1][psy]);
+							if (mc < movementCost[psx-1][psy]){
+								movementCost[psx-1][psy] = mc;
+							}
+						}
+						if (ping[psx-1][psy+1].equals("x")) {
+							unvisited.put(ps3, manhattanDistance[psx-1][psy+1]);
+							if (mc < movementCost[psx-1][psy+1]){
+								movementCost[psx-1][psy+1] = mc;
+							}
+
+						}
+						if (ping[psx][psy-1].equals("x")) {
+							unvisited.put(ps4, manhattanDistance[psx][psy-1]);
+							if (mc < movementCost[psx][psy-1]){
+								movementCost[psx][psy-1] = mc;
+							}
+
+
+						}
+						if (ping[psx][psy+1].equals("x")) {
+							unvisited.put(ps5, manhattanDistance[psx][psy+1]);
+							if (mc < movementCost[psx][psy+1]){
+								movementCost[psx][psy+1] = mc;
+							}
+						}
+						if (ping[psx+1][psy-1].equals("x")) {
+							unvisited.put(ps6, manhattanDistance[psx+1][psy-1]);
+							if (mc < movementCost[psx+1][psy-1]){
+								movementCost[psx+1][psy-1] = mc;
+							}
+						}
+						if (ping[psx+1][psy].equals("x")) {
+							unvisited.put(ps7, manhattanDistance[psx+1][psy]);
+							if (mc < movementCost[psx+1][psy]){
+								movementCost[psx+1][psy] = mc;
+							}
+						}
+						if (ping[psx+1][psy+1].equals("x")) {
+							unvisited.put(ps8, manhattanDistance[psx+1][psy+1]);
+							if (mc < movementCost[psx+1][psy+1]){
+								movementCost[psx+1][psy+1] = mc;
+							}
+						}
+					}
+				}
+
+
+				
 				
 				
 				
@@ -1168,12 +1304,12 @@ public class MyRobotClass extends Robot{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			World myWorld = new World("myInputFile3.txt", true);
+			World myWorld = new World("myInputFile4.txt", true);
 
 			MyRobotClass myRobot = new MyRobotClass();
 			myRobot.addToWorld(myWorld);
 
-			myWorld.createGUI(500, 500, 1);
+//			myWorld.createGUI(500, 500, 1);
 			myRobot.travelToDestination();
 		}
 		catch(Exception e) {
