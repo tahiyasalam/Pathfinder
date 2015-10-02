@@ -22,7 +22,6 @@ public class MyRobotClass extends Robot{
 		uncertainty = world.getUncertain(); 
 		start = world.getStartPos();
 		end = world.getEndPos();
-		//		System.out.println("Dimensions: " + rows + " x " + columns);
 
 
 		super.addToWorld(world); 
@@ -83,7 +82,6 @@ public class MyRobotClass extends Robot{
 					Point e = itr.next();
 
 					if(min == unvisited.get(e)) {
-						//System.out.println("point: " + e.toString() + " min: " + min);
 						//check if robot needs to back track
 						if(min == 0){
 							endGoal = true;
@@ -93,7 +91,6 @@ public class MyRobotClass extends Robot{
 						mc = movementCost[x][y]+1;
 
 
-						//System.out.println("f: "+ e.toString());
 						visited.add(e); //add key to visited, start processing
 						itr.remove();//remove from key set
 						unvisited.remove(e); //remove from unvisited
@@ -404,7 +401,6 @@ public class MyRobotClass extends Robot{
 
 						if ( movementCost[end.x][end.y] < mc ) 
 							movementCost[end.x][end.y] = mc+1;
-						//						System.out.println("END MOVEMENT COST: " + movementCost[end.x][end.y]);
 						//update f matrix - does this work?
 						for ( int i = 0 ; i < rows ; i++ )
 							for ( int j = 0 ; j < columns ; j++ ) {
@@ -420,7 +416,6 @@ public class MyRobotClass extends Robot{
 				}
 			}
 			ArrayList<Point> path = new ArrayList<Point>();
-			//			System.out.println("end" + end.toString());
 			path.add(end);
 			x = end.x;
 			y = end.y;
@@ -507,7 +502,6 @@ public class MyRobotClass extends Robot{
 			//gets to dead end and then does not turn back
 			while(!path.isEmpty()){
 				move(path.get(path.size()-1));
-				//System.out.println(path.get(path.size()-1).toString());
 				path.remove(path.size()-1);
 			}
 		}
@@ -542,47 +536,7 @@ public class MyRobotClass extends Robot{
 		//			System.out.println("");
 		//			}
 
-
-
-
-		//			int countO = 0;//counting the return values from ping map
-		//			int countX = 0;
-		//			String s;
-		//			
-		//			//traverse entire map, ping within certain radius of current position
-		//			for(int i = 0; i < rows; i++){
-		//				for (int j = 0; j < columns; j++){
-		//					p.setLocation(i,j);
-		//					//determine distance from current node
-		//					int d = (int) p.distance(getPosition());
-		//					if (d<4){
-		//						//determine number of pings as a function of  distance
-		//						int pnum = (int) Math.pow(2, d-1);
-		//						s = pingMap(p);
-		//						if (ping[i][j].equals("o") || ping[i][j].equals("x") ){
-		//							for(int k = 0; k < pnum; k++){
-		//								if (s.equals("O")){
-		//									countO++;
-		//								}
-		//								else if (s.equals("X")){
-		//									countX++;
-		//								}
-		//							}
-		//							if (countO > countX){
-		//								ping[i][j] = "o";
-		//								makeGuess(p, true);
-		//							}
-		//							else {
-		//								ping[i][j] = "x";
-		//								makeGuess(p, false);
-		//							}
-		//				
-		//						}	
-		//					}
-		//				}
-		//			}
-		//			
-		//			
+		
 
 
 		else {
@@ -602,13 +556,13 @@ public class MyRobotClass extends Robot{
 			pStart = start;
 
 
-			//where A* loop begins
+			
+			
+			//A* loop begins************************************************
 			int tries = 0;
 			boolean AStarForever = true;
 			while(AStarForever){
 
-
-				//				System.out.println("A* is happening");
 				//start by pinging nearby nodes
 				int countO = 0;//counting the return values from ping map
 				int countX = 0;
@@ -624,7 +578,7 @@ public class MyRobotClass extends Robot{
 						//case for the "subgraph" we are pinging
 						if (d<4){
 							//determine number of pings as a function of  distance
-							int pnum = (int) Math.pow(3, d-1);
+							int pnum = (int) Math.pow(2, d-1);
 							if (ping[i][j].equals("u")){
 								for(int k = 0; k < pnum; k++){
 									s = pingMap(p);
@@ -646,19 +600,6 @@ public class MyRobotClass extends Robot{
 
 							}	
 						}
-						//always ping the immediate neighbors, and update the guess if necessary
-						//						else if (d==1){
-						//							//determine number of pings as a function of  distance
-						//									s = pingMap(p);
-						//									if (s.equals("O") && ping[i][j] == "x"){
-						//										ping[i][j] = "o";
-						//										makeGuess(p, true);
-						//									}
-						//									else if (s.equals("X") && ping[i][j] == "o"){
-						//										ping[i][j] = "x";
-						//										makeGuess(p, false);
-						//									}
-						//								}
 					}	
 				}
 
@@ -678,15 +619,13 @@ public class MyRobotClass extends Robot{
 
 
 					min = Collections.min(unvisited.values()); //store highest priority node
-					//	System.out.println("UNVISITED: " + unvisited.size());
 					for (Iterator<Point> itr = unvisited.keySet().iterator(); itr.hasNext();) {
 						Point e = itr.next();
 
 						if(min == unvisited.get(e)) {
-							//System.out.println("point: " + e.toString() + " min: " + min);
 							//check if robot needs to back track
 							if(e.x == end.x && e.y == end.y){
-								//								System.out.println("reached end");
+						
 								endGoal = true;
 								break;
 							}
@@ -695,7 +634,7 @@ public class MyRobotClass extends Robot{
 							mc = movementCost[x][y]+1;
 
 
-							//System.out.println("f: "+ e.toString());
+						
 							visited.add(e); //add key to visited, start processing
 							itr.remove();//remove from key set
 							unvisited.remove(e); //remove from unvisited
@@ -712,13 +651,6 @@ public class MyRobotClass extends Robot{
 							//4 x 5
 							//6 7 8
 
-							
-//							if(tries == 0){
-//								System.out.println("tries: " + tries);
-//							}
-//							if(tries == 9){
-//								System.out.println("tries: " + tries);
-//							}
 							
 							
 							
@@ -1016,7 +948,6 @@ public class MyRobotClass extends Robot{
 
 							if ( movementCost[end.x][end.y] < mc ) 
 								movementCost[end.x][end.y] = mc+1;
-							//System.out.println("END MOVEMENT COST: " + movementCost[end.x][end.y]);
 							//update f matrix - does this work?
 							for ( int i = 0 ; i < rows ; i++ )
 								for ( int j = 0 ; j < columns ; j++ ) {
@@ -1032,9 +963,7 @@ public class MyRobotClass extends Robot{
 					}	
 					//check that the robot has not boxed itself in
 					boolean boxed = unvisited.isEmpty();
-					//System.out.println("Empty: " + boxed);
 					if (boxed){
-						//System.out.println("tries: " + tries);
 						tries++;
 						//reset values to run A*
 						unvisited.clear();
@@ -1051,22 +980,6 @@ public class MyRobotClass extends Robot{
 
 				}
 
-
-
-
-
-
-
-				//				System.out.println("STOP HAMMER tiME");
-				//				for ( int i = 0 ; i < rows ; i++ ) {
-				//					for ( int j = 0 ; j < columns ; j++ ) {
-				//						if (movementCost[i][j] >= 1000000000 )
-				//							System.out.print("X ");
-				//						else
-				//							System.out.print(movementCost[i][j] + " ");
-				//					}
-				//					System.out.println("");
-				//				}
 
 
 
@@ -1159,24 +1072,17 @@ public class MyRobotClass extends Robot{
 				Point oldP = new Point();
 				Point newP = new Point();
 				path.remove(path.size()-1);
-				//				System.out.println(path.toString());
 				for(int i = 0; i < 8; i ++){
 					next = path.get(path.size()-1);
 					oldP = getPosition();
-					//System.out.println("node: " + next.toString());
-					//System.out.println(move(next).toString());
 					move(next);
 					x = next.x;
 					y = next.y;
 					newP = getPosition();
-					//					System.out.println("Old and New: " + oldP.toString() + " " + newP.toString());
-
 					if(didMove(oldP, newP)){
-						//System.out.println("from: " +current.toString() + "to "+ next.toString());
 						ping[x][y] = "O";
 					}
 					else {
-						//						System.out.println("WALL: " + getPosition().toString());
 						ping[x][y] = "X";
 						break;
 					}
@@ -1196,25 +1102,10 @@ public class MyRobotClass extends Robot{
 				}
 				movementCost[pStart.x][pStart.y] = 0;
 
-
-
-
-
-
-				//				System.out.println(pStart.toString());
-				//				System.out.println("IT TAKES 2");
-				//				for ( int i = 0 ; i < rows ; i++ ) {
-				//					for ( int j = 0 ; j < columns ; j++ ) {
-				//						System.out.print(ping[i][j] + " ");
-				//					}
-				//					System.out.println("");
-				//				}
-
 			}
 		}
 	}
 
-	//}
 
 	//determines if the robot successfully moved to a new position
 	//true -> spot was open
@@ -1253,7 +1144,7 @@ public class MyRobotClass extends Robot{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			World myWorld = new World("myInputFile8.txt", false);
+			World myWorld = new World("myInputFile8.txt", true);
 
 			MyRobotClass myRobot = new MyRobotClass();
 			myRobot.addToWorld(myWorld);
