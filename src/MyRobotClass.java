@@ -14,6 +14,7 @@ public class MyRobotClass extends Robot{
 	Point end;
 
 
+
 	@Override 
 	public void addToWorld(World world) { 
 		columns = world.numCols(); 
@@ -21,6 +22,8 @@ public class MyRobotClass extends Robot{
 		uncertainty = world.getUncertain(); 
 		start = world.getStartPos();
 		end = world.getEndPos();
+		System.out.println("Dimensions: " + rows + " x " + columns);
+
 
 		super.addToWorld(world); 
 	}
@@ -29,7 +32,7 @@ public class MyRobotClass extends Robot{
 	public void travelToDestination() {
 		ArrayList<Point> visited = new ArrayList<Point>();
 		HashMap<Point, Integer> unvisited = new HashMap<Point, Integer>();
-		
+
 
 
 		int min = 0; 
@@ -67,7 +70,7 @@ public class MyRobotClass extends Robot{
 					ping[i][j] = pingMap(p); //get all of the locations
 				}
 			}
-			
+
 			unvisited.put(start, -1);  
 			int mc = 0;
 
@@ -89,7 +92,7 @@ public class MyRobotClass extends Robot{
 						y  = (int)e.getY();
 						mc = movementCost[x][y]+1;
 
-						
+
 						//System.out.println("f: "+ e.toString());
 						visited.add(e); //add key to visited, start processing
 						itr.remove();//remove from key set
@@ -398,7 +401,7 @@ public class MyRobotClass extends Robot{
 								}
 							}
 						}
-						
+
 						if ( movementCost[end.x][end.y] < mc ) 
 							movementCost[end.x][end.y] = mc+1;
 						System.out.println("END MOVEMENT COST: " + movementCost[end.x][end.y]);
@@ -411,7 +414,7 @@ public class MyRobotClass extends Robot{
 									unvisited.put((p), f[i][j]);
 							}
 						break;
-						
+
 					}
 
 				}
@@ -426,62 +429,62 @@ public class MyRobotClass extends Robot{
 			boolean xb = x < rows-1;
 			boolean yl = y > 0;
 			boolean yr = y < columns-1;
-			
+
 			boolean done = false;
 			Point save = new Point();
-			
+
 			while(!done){
-			
+
 				if (xt && yl && movementCost[x-1][y-1] < min){
 					min = movementCost[x-1][y-1];
 					Point p1 = new Point(x-1, y-1);
 					save.setLocation(x-1, y-1);
 					path.add(p1);	
 				}
-				
+
 				if (xt && movementCost[x-1][y] < min){
 					min = movementCost[x-1][y];
 					Point p2 = new Point(x-1, y);
 					save.setLocation(x-1, y);
 					path.add(p2);
 				}
-				
+
 				if (xt && yr && movementCost[x-1][y+1] < min){
 					min = movementCost[x-1][y+1];
 					Point p3 = new Point(x-1, y+1);
 					save.setLocation(x-1, y+1);
 					path.add(p3);
 				}
-				 
+
 				if (yl && movementCost[x][y-1] < min){
 					min = movementCost[x][y-1];
 					Point p4 = new Point(x, y-1);
 					save.setLocation(x, y-1);
 					path.add(p4);
-	
+
 				}
-			
+
 				if (yr && movementCost[x][y+1] < min){
 					min = movementCost[x][y+1];
 					Point p5 = new Point(x, y+1);
 					save.setLocation(x, y+1);
 					path.add(p5);
 				}
-				
+
 				if (xb && yl && movementCost[x+1][y-1] < min){
 					min = movementCost[x+1][y-1];
 					Point p6 = new Point(x+1, y-1);
 					save.setLocation(x+1, y-1);
 					path.add(p6);
 				}
-				
+
 				if (xb && movementCost[x+1][y] < min){
 					min = movementCost[x+1][y];
 					Point p7 = new Point(x+1, y);
 					save.setLocation(x+1, y);
 					path.add(p7);
 				}
-				
+
 				if (xb && yr && movementCost[x+1][y+1] < min){
 					min = movementCost[x+1][y+1];
 					Point p8 = new Point(x+1, y+1);
@@ -497,9 +500,9 @@ public class MyRobotClass extends Robot{
 				xb = x < rows-1;
 				yl = y > 0;
 				yr = y < columns-1;
-				
+
 			}
-			
+
 			System.out.println("STOP HAMMER tiME");
 			for ( int i = 0 ; i < rows ; i++ ) {
 				for ( int j = 0 ; j < columns ; j++ ) {
@@ -508,9 +511,9 @@ public class MyRobotClass extends Robot{
 					else
 						System.out.print(movementCost[i][j] + " ");
 				}
-			System.out.println("");
+				System.out.println("");
 			}
-			
+
 			//gets to dead end and then does not turn back
 			while(!path.isEmpty()){
 				move(path.get(path.size()-1));
@@ -519,40 +522,28 @@ public class MyRobotClass extends Robot{
 			}
 		}
 
-//			
-//			System.out.println("LIVE FROM NEW YORK");
-//			for ( int i = 0 ; i < rows ; i++ ) {
-//				for ( int j = 0 ; j < columns ; j++ ) {
-//					System.out.print(manhattanDistance[i][j] + " ");
-//				}
-//			System.out.println("");
-//			}
-//
+		//			
+		//			System.out.println("LIVE FROM NEW YORK");
+		//			for ( int i = 0 ; i < rows ; i++ ) {
+		//				for ( int j = 0 ; j < columns ; j++ ) {
+		//					System.out.print(manhattanDistance[i][j] + " ");
+		//				}
+		//			System.out.println("");
+		//			}
+		//
 
-//
-//		
-//			System.out.println("IT TAKES 2");
-//			for ( int i = 0 ; i < rows ; i++ ) {
-//				for ( int j = 0 ; j < columns ; j++ ) {
-//					System.out.print(f[i][j] + " ");
-//				}
-//			System.out.println("");
-//			}
+		//
+		//		
+		//			System.out.println("IT TAKES 2");
+		//			for ( int i = 0 ; i < rows ; i++ ) {
+		//				for ( int j = 0 ; j < columns ; j++ ) {
+		//					System.out.print(f[i][j] + " ");
+		//				}
+		//			System.out.println("");
+		//			}
 
-
-		
-			
-	
-			
-			
-			
-		
-
-		
-		
 		else {
 			unvisited.put(start, -1);  
-
 
 			boolean endGoal = false;
 
@@ -854,28 +845,20 @@ public class MyRobotClass extends Robot{
 		}
 	}
 
-
-
-
-
-
-
-
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			World myWorld = new World("myInputFile4.txt", false);
+			World myWorld = new World("myInputFile1.txt", false);
 
 			MyRobotClass myRobot = new MyRobotClass();
 			myRobot.addToWorld(myWorld);
 
-			myWorld.createGUI(300, 300, 400);
+			myWorld.createGUI(500, 500, 10);
 			myRobot.travelToDestination();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-
 	}
+
 }
