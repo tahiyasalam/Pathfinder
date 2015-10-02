@@ -22,7 +22,7 @@ public class MyRobotClass extends Robot{
 		uncertainty = world.getUncertain(); 
 		start = world.getStartPos();
 		end = world.getEndPos();
-//		System.out.println("Dimensions: " + rows + " x " + columns);
+		//		System.out.println("Dimensions: " + rows + " x " + columns);
 
 
 		super.addToWorld(world); 
@@ -404,7 +404,7 @@ public class MyRobotClass extends Robot{
 
 						if ( movementCost[end.x][end.y] < mc ) 
 							movementCost[end.x][end.y] = mc+1;
-//						System.out.println("END MOVEMENT COST: " + movementCost[end.x][end.y]);
+						//						System.out.println("END MOVEMENT COST: " + movementCost[end.x][end.y]);
 						//update f matrix - does this work?
 						for ( int i = 0 ; i < rows ; i++ )
 							for ( int j = 0 ; j < columns ; j++ ) {
@@ -420,7 +420,7 @@ public class MyRobotClass extends Robot{
 				}
 			}
 			ArrayList<Point> path = new ArrayList<Point>();
-//			System.out.println("end" + end.toString());
+			//			System.out.println("end" + end.toString());
 			path.add(end);
 			x = end.x;
 			y = end.y;
@@ -510,18 +510,18 @@ public class MyRobotClass extends Robot{
 				//System.out.println(path.get(path.size()-1).toString());
 				path.remove(path.size()-1);
 			}
-	}
+		}
 
-//			System.out.println("STOP HAMMER tiME");
-//			for ( int i = 0 ; i < rows ; i++ ) {
-//				for ( int j = 0 ; j < columns ; j++ ) {
-//					if (movementCost[i][j] >= 1000000000 )
-//						System.out.print("X ");
-//					else
-//						System.out.print(movementCost[i][j] + " ");
-//				}
-//				System.out.println("");
-//			}
+		//			System.out.println("STOP HAMMER tiME");
+		//			for ( int i = 0 ; i < rows ; i++ ) {
+		//				for ( int j = 0 ; j < columns ; j++ ) {
+		//					if (movementCost[i][j] >= 1000000000 )
+		//						System.out.print("X ");
+		//					else
+		//						System.out.print(movementCost[i][j] + " ");
+		//				}
+		//				System.out.println("");
+		//			}
 		//			
 		//			System.out.println("LIVE FROM NEW YORK");
 		//			for ( int i = 0 ; i < rows ; i++ ) {
@@ -543,83 +543,88 @@ public class MyRobotClass extends Robot{
 		//			}
 
 
-			
-			
-//			int countO = 0;//counting the return values from ping map
-//			int countX = 0;
-//			String s;
-//			
-//			//traverse entire map, ping within certain radius of current position
-//			for(int i = 0; i < rows; i++){
-//				for (int j = 0; j < columns; j++){
-//					p.setLocation(i,j);
-//					//determine distance from current node
-//					int d = (int) p.distance(getPosition());
-//					if (d<4){
-//						//determine number of pings as a function of  distance
-//						int pnum = (int) Math.pow(2, d-1);
-//						s = pingMap(p);
-//						if (ping[i][j].equals("o") || ping[i][j].equals("x") ){
-//							for(int k = 0; k < pnum; k++){
-//								if (s.equals("O")){
-//									countO++;
-//								}
-//								else if (s.equals("X")){
-//									countX++;
-//								}
-//							}
-//							if (countO > countX){
-//								ping[i][j] = "o";
-//								makeGuess(p, true);
-//							}
-//							else {
-//								ping[i][j] = "x";
-//								makeGuess(p, false);
-//							}
-//				
-//						}	
-//					}
-//				}
-//			}
-//			
-//			
-			
-			
+
+
+		//			int countO = 0;//counting the return values from ping map
+		//			int countX = 0;
+		//			String s;
+		//			
+		//			//traverse entire map, ping within certain radius of current position
+		//			for(int i = 0; i < rows; i++){
+		//				for (int j = 0; j < columns; j++){
+		//					p.setLocation(i,j);
+		//					//determine distance from current node
+		//					int d = (int) p.distance(getPosition());
+		//					if (d<4){
+		//						//determine number of pings as a function of  distance
+		//						int pnum = (int) Math.pow(2, d-1);
+		//						s = pingMap(p);
+		//						if (ping[i][j].equals("o") || ping[i][j].equals("x") ){
+		//							for(int k = 0; k < pnum; k++){
+		//								if (s.equals("O")){
+		//									countO++;
+		//								}
+		//								else if (s.equals("X")){
+		//									countX++;
+		//								}
+		//							}
+		//							if (countO > countX){
+		//								ping[i][j] = "o";
+		//								makeGuess(p, true);
+		//							}
+		//							else {
+		//								ping[i][j] = "x";
+		//								makeGuess(p, false);
+		//							}
+		//				
+		//						}	
+		//					}
+		//				}
+		//			}
+		//			
+		//			
+
+
 		else {
 			String ping[][] = new String[rows][columns]; //g-values for each location
-			
+
 			for (int i = 0; i < rows; i++) {
 				for (int j = 0; j < columns; j++) {
 					ping[i][j] = "u"; //get all of the locations
 				}
 			}		
-			
-			
-			
+
+
+
 			Point p = new Point();
-			
+
 			Point pStart = new Point();
 			pStart = start;
-			 
-			
+
+
 			//where A* loop begins
+			int tries = 0;
 			boolean AStarForever = true;
 			while(AStarForever){
-//				System.out.println("A* is happening");
+
+
+				//				System.out.println("A* is happening");
 				//start by pinging nearby nodes
 				int countO = 0;//counting the return values from ping map
 				int countX = 0;
 				String s;
-				
+
 				//traverse entire map, ping within certain radius of current position
 				for(int i = 0; i < rows; i++){
 					for (int j = 0; j < columns; j++){
 						p.setLocation(i,j);
 						//determine distance from current node
 						int d = (int) p.distance(pStart);
+
+						//case for the "subgraph" we are pinging
 						if (d<4){
 							//determine number of pings as a function of  distance
-							int pnum = (int) Math.pow(2, d-1);
+							int pnum = (int) Math.pow(3, d-1);
 							if (ping[i][j].equals("u")){
 								for(int k = 0; k < pnum; k++){
 									s = pingMap(p);
@@ -638,43 +643,63 @@ public class MyRobotClass extends Robot{
 									ping[i][j] = "x";
 									makeGuess(p, false);
 								}
-					
+
 							}	
 						}
-					}
+						//always ping the immediate neighbors, and update the guess if necessary
+						//						else if (d==1){
+						//							//determine number of pings as a function of  distance
+						//									s = pingMap(p);
+						//									if (s.equals("O") && ping[i][j] == "x"){
+						//										ping[i][j] = "o";
+						//										makeGuess(p, true);
+						//									}
+						//									else if (s.equals("X") && ping[i][j] == "o"){
+						//										ping[i][j] = "x";
+						//										makeGuess(p, false);
+						//									}
+						//								}
+					}	
 				}
-				
-					
-				
+
+
+
+
 				unvisited.put(pStart, -1);
-				
+
 				int mc = 0;
-	
+
 				boolean endGoal = false;
-	
+
+
+
 				while (!endGoal && !unvisited.isEmpty()) {
+
+
+
 					min = Collections.min(unvisited.values()); //store highest priority node
-				//	System.out.println("UNVISITED: " + unvisited.size());
+					//	System.out.println("UNVISITED: " + unvisited.size());
 					for (Iterator<Point> itr = unvisited.keySet().iterator(); itr.hasNext();) {
 						Point e = itr.next();
-	
+
 						if(min == unvisited.get(e)) {
 							//System.out.println("point: " + e.toString() + " min: " + min);
 							//check if robot needs to back track
 							if(e.x == end.x && e.y == end.y){
-//								System.out.println("reached end");
+								//								System.out.println("reached end");
 								endGoal = true;
+								break;
 							}
 							x = (int)e.getX();
 							y  = (int)e.getY();
 							mc = movementCost[x][y]+1;
-	
-	
+
+
 							//System.out.println("f: "+ e.toString());
 							visited.add(e); //add key to visited, start processing
 							itr.remove();//remove from key set
 							unvisited.remove(e); //remove from unvisited
-	
+
 							Point p1 = new Point(x-1, y-1);
 							Point p2 = new Point(x-1, y);					
 							Point p3 = new Point(x-1, y+1);
@@ -686,299 +711,309 @@ public class MyRobotClass extends Robot{
 							//1 2 3
 							//4 x 5
 							//6 7 8
-	
+
+							
+//							if(tries == 0){
+//								System.out.println("tries: " + tries);
+//							}
+//							if(tries == 9){
+//								System.out.println("tries: " + tries);
+//							}
+							
+							
+							
 							//corner cases
 							if (x == 0 && y == 0) { //top left
-								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u")) && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u") || ignoreGuess(tries, ping[x+1][y].equals("x"))) && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if (mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
 									}
 								}
-								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u")) && !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u") || ignoreGuess(tries, ping[x][y+1].equals("x"))) && !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if (mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
 									}
 								}
-								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u")) && !visited.contains(p8)) {
+								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u") || ignoreGuess(tries, ping[x+1][y+1].equals("x"))) && !visited.contains(p8)) {
 									unvisited.put(p8, manhattanDistance[x+1][y+1]);
 									if (mc < movementCost[x+1][y+1]){
 										movementCost[x+1][y+1] = mc;
 									}
 								}	
 							}
-	
+
 							else if (y == columns-1 && x == 0) { //top right
-								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u"))&& !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u") || ignoreGuess(tries, ping[x][y-1].equals("x")))&& !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
 									}
 								}
-								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u")) && !visited.contains(p6)) {
+								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u") || ignoreGuess(tries, ping[x+1][y-1].equals("x"))) && !visited.contains(p6)) {
 									unvisited.put(p6, manhattanDistance[x+1][y-1]);
 									if(mc < movementCost[x+1][y-1]){
 										movementCost[x+1][y-1] = mc;
 									}
 								}
-								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u")) && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u") || ignoreGuess(tries, ping[x+1][y].equals("x"))) && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if(mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
 									}
 								}
 							}
-	
+
 							else if (y == 0 && x == rows-1) { //bottom left
-								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") || ping[x-1][y+1].equals("u")) && !visited.contains(p3)) {
+								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") || ping[x-1][y+1].equals("u") || ignoreGuess(tries, ping[x-1][y+1].equals("x"))) && !visited.contains(p3)) {
 									unvisited.put(p3, manhattanDistance[x-1][y+1]);
 									if (mc < movementCost[x-1][y+1]){ 
 										movementCost[x-1][y+1] = mc;
 									}
 								}
-								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u"))&& !visited.contains(p2)) {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u") || ignoreGuess(tries, ping[x-1][y].equals("x")))&& !visited.contains(p2)) {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if (mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
 									}
 								}
-								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u"))&& !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u") || ignoreGuess(tries, ping[x][y+1].equals("x")))&& !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if (mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
 									}
 								}
 							}
-	
+
 							else if (y == columns-1 && x == rows-1) { //bottom right
-								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u") )&& !visited.contains(p1)) {
+								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u") || ignoreGuess(tries, ping[x-1][y-1].equals("x")))&& !visited.contains(p1)) {
 									unvisited.put(p1, manhattanDistance[x-1][y-1]);
 									if (mc < movementCost[x-1][y-1]){
 										movementCost[x-1][y-1] = mc;
 									}
 								}
-								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u"))&& !visited.contains(p2)) {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u") || ignoreGuess(tries, ping[x-1][y].equals("x")))&& !visited.contains(p2)) {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if(mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
 									}
 								}
-								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u"))&& !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u") || ignoreGuess(tries, ping[x][y-1].equals("x")))&& !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
 									}
 								}
 							}
-	
+
 							//top row cases
 							else if(x == 0) {
 								//left and right
-								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u")) && !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u") || ignoreGuess(tries, ping[x][y-1].equals("x"))) && !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
 									}
 								}
-								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u"))&& !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u") || ignoreGuess(tries, ping[x][y+1].equals("x")))&& !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if(mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
 									}
 								}
-	
+
 								//bottom
-								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u")) && !visited.contains(p6)) {
+								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u") || ignoreGuess(tries, ping[x+1][y-1].equals("x"))) && !visited.contains(p6)) {
 									unvisited.put(p6, manhattanDistance[x+1][y-1]);
 									if (mc < movementCost[x+1][y-1]){
 										movementCost[x+1][y-1] = mc;
 									}
 								}
-								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u")) && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u") || ignoreGuess(tries, ping[x+1][y].equals("x"))) && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if (mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
 									}
 								}
-								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u")) && !visited.contains(p8)) {
+								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u") || ignoreGuess(tries, ping[x+1][y+1].equals("x"))) && !visited.contains(p8)) {
 									unvisited.put(p8, manhattanDistance[x+1][y+1]);
 									if (mc < movementCost[x+1][y+1]){
 										movementCost[x+1][y+1] = mc;
 									}
 								}
 							}
-	
+
 							//bottom row cases
 							else if (x == rows-1) {
 								//top
-								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u")) && !visited.contains(p1)) {
+								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u") || ignoreGuess(tries, ping[x-1][y-1].equals("x"))) && !visited.contains(p1)) {
 									unvisited.put(p1, manhattanDistance[x-1][y-1]);
 									if(mc < movementCost[x-1][y-1]){
 										movementCost[x-1][y-1] = mc;
 									}
 								}
-								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u")) && !visited.contains(p2)) {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u") || ignoreGuess(tries, ping[x-1][y].equals("x"))) && !visited.contains(p2)) {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if (mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
 									}
 								}
-								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") ||ping[x-1][y+1].equals("u")) && !visited.contains(p3)) {
+								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") ||ping[x-1][y+1].equals("u") || ignoreGuess(tries, ping[x-1][y+1].equals("x"))) && !visited.contains(p3)) {
 									unvisited.put(p3, manhattanDistance[x-1][y+1]);
 									if (mc < movementCost[x-1][y+1]){
 										movementCost[x-1][y+1] = mc;
 									}
 								}
-	
+
 								//left and right
-								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u") ) && !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u") || ignoreGuess(tries, ping[x][y-1].equals("x"))) && !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
 									}
 								}
-								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u")) && !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u") || ignoreGuess(tries, ping[x][y+1].equals("x"))) && !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if (mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
 									}
 								}	
 							}
-	
+
 							//left row cases
 							else if(y == 0) {
-								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o")  || ping[x-1][y].equals("u")) && !visited.contains(p2)) {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o")  || ping[x-1][y].equals("u") || ignoreGuess(tries, ping[x-1][y].equals("x"))) && !visited.contains(p2)) {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if (mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
 									}
 								}
-								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") || ping[x-1][y+1].equals("u")) && !visited.contains(p3)) {
+								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") || ping[x-1][y+1].equals("u") || ignoreGuess(tries, ping[x-1][y+1].equals("x"))) && !visited.contains(p3)) {
 									unvisited.put(p3, manhattanDistance[x-1][y+1]);
 									if (mc < movementCost[x-1][y+1]){
 										movementCost[x-1][y+1] = mc;
 									}
 								}
-	
+
 								//left and right
-								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u")) && !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u") || ignoreGuess(tries, ping[x][y+1].equals("x"))) && !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if (mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
 									}
 								}
-	
+
 								//bottom
-								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u")) && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u") || ignoreGuess(tries, ping[x+1][y].equals("x"))) && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if (mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
 									}
 								}
-								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u")) && !visited.contains(p8)) {
+								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u") || ignoreGuess(tries, ping[x+1][y+1].equals("x"))) && !visited.contains(p8)) {
 									unvisited.put(p8, manhattanDistance[x+1][y+1]);
 									if (mc < movementCost[x+1][y+1]){
 										movementCost[x+1][y+1] = mc;
 									}
 								}
 							}
-	
+
 							else if(y == columns-1) {
-								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u")) && !visited.contains(p1)) {
+								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u") || ignoreGuess(tries, ping[x-1][y-1].equals("x"))) && !visited.contains(p1)) {
 									unvisited.put(p1, manhattanDistance[x-1][y-1]);
 									if (mc < movementCost[x-1][y-1]){
 										movementCost[x-1][y-1] = mc;
 									}
 								}
-								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u")) && !visited.contains(p2)) {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u") || ignoreGuess(tries, ping[x-1][y].equals("x"))) && !visited.contains(p2)) {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if (mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
 									}
 								}
-	
+
 								//left and right
-								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u")) && !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u") || ignoreGuess(tries, ping[x][y-1].equals("x"))) && !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
 									}
 								}
-	
+
 								//bottom
-								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u")) && !visited.contains(p6)) {
+								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u") || ignoreGuess(tries, ping[x+1][y-1].equals("x"))) && !visited.contains(p6)) {
 									unvisited.put(p6, manhattanDistance[x+1][y-1]);
 									if (mc < movementCost[x+1][y-1]){
 										movementCost[x+1][y-1] = mc;
 									}
 								}
-								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u"))  && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u") || ignoreGuess(tries, ping[x+1][y].equals("x")))  && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if (mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
 									}
 								}
 							}
-	
+
 							//right row cases
 							else { //normal, non-edge case coordinate
 								//top
-	
-								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u")) && !visited.contains(p1)) {
+
+								if ((ping[x-1][y-1].equals("O") || ping[x-1][y-1].equals("o") || ping[x-1][y-1].equals("u") || ignoreGuess(tries, ping[x-1][y-1].equals("x"))) && !visited.contains(p1)) {
 									unvisited.put(p1, manhattanDistance[x-1][y-1]);
 									if (mc < movementCost[x-1][y-1]){
 										movementCost[x-1][y-1] = mc;
 									}
 								}
-								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u")) && !visited.contains(p2))  {
+								if ((ping[x-1][y].equals("O") || ping[x-1][y].equals("o") || ping[x-1][y].equals("u") || ignoreGuess(tries, ping[x-1][y].equals("x"))) && !visited.contains(p2))  {
 									unvisited.put(p2, manhattanDistance[x-1][y]);
 									if (mc < movementCost[x-1][y]){
 										movementCost[x-1][y] = mc;
 									}
 								}
-								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") || ping[x-1][y+1].equals("u")) && !visited.contains(p3)) {
+								if ((ping[x-1][y+1].equals("O") || ping[x-1][y+1].equals("o") || ping[x-1][y+1].equals("u") || ignoreGuess(tries, ping[x-1][y+1].equals("x"))) && !visited.contains(p3)) {
 									unvisited.put(p3, manhattanDistance[x-1][y+1]);
 									if (mc < movementCost[x-1][y+1]){
 										movementCost[x-1][y+1] = mc;
 									}
 								}
-	
+
 								//left and right
-								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u")) && !visited.contains(p4)) {
+								if ((ping[x][y-1].equals("O") || ping[x][y-1].equals("o") || ping[x][y-1].equals("u") || ignoreGuess(tries, ping[x][y-1].equals("x"))) && !visited.contains(p4)) {
 									unvisited.put(p4, manhattanDistance[x][y-1]);
 									if (mc < movementCost[x][y-1]){
 										movementCost[x][y-1] = mc;
 									}
 								}
-								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u")) && !visited.contains(p5)) {
+								if ((ping[x][y+1].equals("O") || ping[x][y+1].equals("o") || ping[x][y+1].equals("u") || ignoreGuess(tries, ping[x][y+1].equals("x"))) && !visited.contains(p5)) {
 									unvisited.put(p5, manhattanDistance[x][y+1]);
 									if (mc < movementCost[x][y+1]){
 										movementCost[x][y+1] = mc;
 									}
 								}
-	
+
 								//bottom
-								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u")) && !visited.contains(p6)) {
+								if ((ping[x+1][y-1].equals("O") || ping[x+1][y-1].equals("o") || ping[x+1][y-1].equals("u") || ignoreGuess(tries, ping[x+1][y-1].equals("x"))) && !visited.contains(p6)) {
 									unvisited.put(p6, manhattanDistance[x+1][y-1]);
 									if (mc < movementCost[x+1][y-1]){
 										movementCost[x+1][y-1] = mc;
 									}
 								}
-								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u")) && !visited.contains(p7)) {
+								if ((ping[x+1][y].equals("O") || ping[x+1][y].equals("o") || ping[x+1][y].equals("u") || ignoreGuess(tries, ping[x+1][y].equals("x"))) && !visited.contains(p7)) {
 									unvisited.put(p7, manhattanDistance[x+1][y]);
 									if (mc < movementCost[x+1][y]){
 										movementCost[x+1][y] = mc;
 									}
 								}
-								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u")) && !visited.contains(p8)) {
+								if ((ping[x+1][y+1].equals("O") || ping[x+1][y+1].equals("o") || ping[x+1][y+1].equals("u") || ignoreGuess(tries, ping[x+1][y+1].equals("x"))) && !visited.contains(p8)) {
 									unvisited.put(p8, manhattanDistance[x+1][y+1]);
 									if (mc < movementCost[x+1][y+1]){
 										movementCost[x+1][y+1] = mc;
 									}
 								}
 							}
-	
+
 							if ( movementCost[end.x][end.y] < mc ) 
 								movementCost[end.x][end.y] = mc+1;
 							//System.out.println("END MOVEMENT COST: " + movementCost[end.x][end.y]);
@@ -991,26 +1026,51 @@ public class MyRobotClass extends Robot{
 										unvisited.put((p), f[i][j]);
 								}
 							break;
-	
+
 						}
-	
+
+					}	
+					//check that the robot has not boxed itself in
+					boolean boxed = unvisited.isEmpty();
+					//System.out.println("Empty: " + boxed);
+					if (boxed){
+						//System.out.println("tries: " + tries);
+						tries++;
+						//reset values to run A*
+						unvisited.clear();
+						unvisited.put(pStart, -1);
+						visited.clear();
+						for ( int i = 0 ; i < rows ; i++ ) {
+							for ( int j = 0 ; j < columns ; j++ ) {
+								movementCost[i][j] = 1000000000;
+							}
+						}
+						movementCost[pStart.x][pStart.y] = 0;
 					}
+					else tries = 0;
+
 				}
-				
-//				System.out.println("STOP HAMMER tiME");
-//				for ( int i = 0 ; i < rows ; i++ ) {
-//					for ( int j = 0 ; j < columns ; j++ ) {
-//						if (movementCost[i][j] >= 1000000000 )
-//							System.out.print("X ");
-//						else
-//							System.out.print(movementCost[i][j] + " ");
-//					}
-//					System.out.println("");
-//				}
-				
-				
-				
-				
+
+
+
+
+
+
+
+				//				System.out.println("STOP HAMMER tiME");
+				//				for ( int i = 0 ; i < rows ; i++ ) {
+				//					for ( int j = 0 ; j < columns ; j++ ) {
+				//						if (movementCost[i][j] >= 1000000000 )
+				//							System.out.print("X ");
+				//						else
+				//							System.out.print(movementCost[i][j] + " ");
+				//					}
+				//					System.out.println("");
+				//				}
+
+
+
+
 				ArrayList<Point> path = new ArrayList<Point>();
 				path.add(end);
 				x = end.x;
@@ -1020,62 +1080,62 @@ public class MyRobotClass extends Robot{
 				boolean xb = x < rows-1;
 				boolean yl = y > 0;
 				boolean yr = y < columns-1;
-	
+
 				boolean done = false;
 				Point save = new Point();
-	
+
 				while(!done){
-	
+
 					if (xt && yl && movementCost[x-1][y-1] < min){
 						min = movementCost[x-1][y-1];
 						Point p1 = new Point(x-1, y-1);
 						save.setLocation(x-1, y-1);
 						path.add(p1);	
 					}
-	
+
 					if (xt && movementCost[x-1][y] < min){
 						min = movementCost[x-1][y];
 						Point p2 = new Point(x-1, y);
 						save.setLocation(x-1, y);
 						path.add(p2);
 					}
-	
+
 					if (xt && yr && movementCost[x-1][y+1] < min){
 						min = movementCost[x-1][y+1];
 						Point p3 = new Point(x-1, y+1);
 						save.setLocation(x-1, y+1);
 						path.add(p3);
 					}
-	
+
 					if (yl && movementCost[x][y-1] < min){
 						min = movementCost[x][y-1];
 						Point p4 = new Point(x, y-1);
 						save.setLocation(x, y-1);
 						path.add(p4);
-	
+
 					}
-	
+
 					if (yr && movementCost[x][y+1] < min){
 						min = movementCost[x][y+1];
 						Point p5 = new Point(x, y+1);
 						save.setLocation(x, y+1);
 						path.add(p5);
 					}
-	
+
 					if (xb && yl && movementCost[x+1][y-1] < min){
 						min = movementCost[x+1][y-1];
 						Point p6 = new Point(x+1, y-1);
 						save.setLocation(x+1, y-1);
 						path.add(p6);
 					}
-	
+
 					if (xb && movementCost[x+1][y] < min){
 						min = movementCost[x+1][y];
 						Point p7 = new Point(x+1, y);
 						save.setLocation(x+1, y);
 						path.add(p7);
 					}
-	
+
 					if (xb && yr && movementCost[x+1][y+1] < min){
 						min = movementCost[x+1][y+1];
 						Point p8 = new Point(x+1, y+1);
@@ -1091,15 +1151,15 @@ public class MyRobotClass extends Robot{
 					xb = x < rows-1;
 					yl = y > 0;
 					yr = y < columns-1;
-	
+
 				}
-	
-	
+
+
 				Point next = new Point();
 				Point oldP = new Point();
 				Point newP = new Point();
 				path.remove(path.size()-1);
-//				System.out.println(path.toString());
+				//				System.out.println(path.toString());
 				for(int i = 0; i < 8; i ++){
 					next = path.get(path.size()-1);
 					oldP = getPosition();
@@ -1109,14 +1169,14 @@ public class MyRobotClass extends Robot{
 					x = next.x;
 					y = next.y;
 					newP = getPosition();
-//					System.out.println("Old and New: " + oldP.toString() + " " + newP.toString());
-					
+					//					System.out.println("Old and New: " + oldP.toString() + " " + newP.toString());
+
 					if(didMove(oldP, newP)){
 						//System.out.println("from: " +current.toString() + "to "+ next.toString());
 						ping[x][y] = "O";
 					}
 					else {
-//						System.out.println("WALL: " + getPosition().toString());
+						//						System.out.println("WALL: " + getPosition().toString());
 						ping[x][y] = "X";
 						break;
 					}
@@ -1135,27 +1195,30 @@ public class MyRobotClass extends Robot{
 					}
 				}
 				movementCost[pStart.x][pStart.y] = 0;
-				
-				
-				
-				
-				
-				
-//				System.out.println(pStart.toString());
-//				System.out.println("IT TAKES 2");
-//				for ( int i = 0 ; i < rows ; i++ ) {
-//					for ( int j = 0 ; j < columns ; j++ ) {
-//						System.out.print(ping[i][j] + " ");
-//					}
-//					System.out.println("");
-//				}
-				
-				
+
+
+
+
+
+
+				//				System.out.println(pStart.toString());
+				//				System.out.println("IT TAKES 2");
+				//				for ( int i = 0 ; i < rows ; i++ ) {
+				//					for ( int j = 0 ; j < columns ; j++ ) {
+				//						System.out.print(ping[i][j] + " ");
+				//					}
+				//					System.out.println("");
+				//				}
+
 			}
 		}
-
 	}
-	
+
+	//}
+
+	//determines if the robot successfully moved to a new position
+	//true -> spot was open
+	//false -> ran into a wall
 	public boolean didMove(Point x, Point y) {
 		if(x.distance(y) == 0) {
 			return false;
@@ -1163,12 +1226,34 @@ public class MyRobotClass extends Robot{
 		else
 			return true;
 	}
-	
+
+
+	//determines whether we trust our guess that a position is a wall
+	//we start ignoring the guess when we think we are boxed in
+	//aka record the number of times unvisited becomes empty
+	//takes an int-> num times unvisited becomes empty without reaching end
+	//and a boolean-> true if our guess was x
+	public boolean ignoreGuess(int t, boolean x){
+		//only applies if the position is x
+		double a;
+		if (x){
+			if (t < 9){
+				a = 1/(1+Math.exp(-1*(t-4)));
+				if(a < Math.random()){
+					return false;//low probability our guess is wrong
+				}
+				else return true;//high probability our guess is wrong
+			}
+			else return true;//automatically ignore
+		}
+		else return false;
+	}
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			World myWorld = new World("myInputFile3.txt", true);
+			World myWorld = new World("myInputFile8.txt", false);
 
 			MyRobotClass myRobot = new MyRobotClass();
 			myRobot.addToWorld(myWorld);
