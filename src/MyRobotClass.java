@@ -578,7 +578,7 @@ public class MyRobotClass extends Robot{
 						//case for the "subgraph" we are pinging
 						if (d<4){
 							//determine number of pings as a function of  distance
-							int pnum = (int) Math.pow(2, d-1);
+							int pnum = 2*d;
 							if (ping[i][j].equals("u")){
 								for(int k = 0; k < pnum; k++){
 									s = pingMap(p);
@@ -1072,7 +1072,7 @@ public class MyRobotClass extends Robot{
 				Point oldP = new Point();
 				Point newP = new Point();
 				path.remove(path.size()-1);
-				for(int i = 0; i < 8; i ++){
+				for(int i = 0; i < 4; i ++){
 					next = path.get(path.size()-1);
 					oldP = getPosition();
 					move(next);
@@ -1128,7 +1128,7 @@ public class MyRobotClass extends Robot{
 		//only applies if the position is x
 		double a;
 		if (x){
-			if (t < 9){
+			if (t < 8){
 				a = 1/(1+Math.exp(-1*(t-4)));
 				if(a < Math.random()){
 					return false;//low probability our guess is wrong
@@ -1144,7 +1144,7 @@ public class MyRobotClass extends Robot{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			World myWorld = new World("myInputFile8.txt", true);
+			World myWorld = new World("myInputFile3.txt", true);
 
 			MyRobotClass myRobot = new MyRobotClass();
 			myRobot.addToWorld(myWorld);
